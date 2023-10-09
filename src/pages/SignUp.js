@@ -9,6 +9,7 @@ import { useState } from "react";
 import { validateForm } from "../utils/utils";
 import { Divider } from "@mui/material";
 import LogoImage from "../logo.svg";
+import { addNewUser } from "../api/user";
 
 function SignUp() {
   const [state, setState] = useState({
@@ -33,13 +34,20 @@ function SignUp() {
     const errors = validateForm(state);
 
     if (Object.keys(errors).length === 0) {
-      // Validation passed, you can perform login logic here
-      console.log("Form submitted with first name:", state.firstName);
-      console.log("Form submitted with last name:", state.lastName);
-      console.log("Form submitted with email:", state.email);
-      console.log("Form submitted with password:", state.password);
-      console.log("Form submitted with phone #:", state.phoneNo);
-      // Clear the errors
+      const payload = {
+        first_name: state.firstName,
+        last_name: state.lastName,
+        email: state.email,
+        password: state.password,
+        phone_no: state.phoneNo,
+      };
+      addNewUser(payload)
+        .then((respone) => {
+          console.log(respone);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       setState({ ...state, errors: {} });
     } else {
       // Validation failed, update the state with errors
