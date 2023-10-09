@@ -16,6 +16,7 @@ export const login = async (user) => {
   try {
     const response = await axios.post("/login/", user);
     console.log(response);
+    window.localStorage.setItem("token", response.data.payload.token);
     return response;
   } catch (error) {
     return error;

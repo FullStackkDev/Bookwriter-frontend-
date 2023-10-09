@@ -41,10 +41,12 @@ function SignIn() {
         email: state.email,
         password: state.password,
       };
-      console.log("payload = > ", payload);
+
       login(payload)
         .then((respone) => {
-          console.log("respone => ", respone);
+          if (respone.data.success) {
+            window.location.reload();
+          }
         })
         .catch((error) => {
           console.log("error => ", error);
