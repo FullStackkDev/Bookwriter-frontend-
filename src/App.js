@@ -10,7 +10,7 @@ import Settings from "./pages/Settings";
 import "./App.css";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   return (
     <div className="App">
@@ -27,8 +27,10 @@ function App() {
         ) : (
           <>
             <Route path="/" element={<Navigate to="/signin" />} />
-            <Route path="/home" element={<Navigate to="/signin" />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/books" element={<Navigate to="/signin" />} />
+            <Route path="/home" element={<Navigate to="/signin" />} />
           </>
         )}
       </Routes>
