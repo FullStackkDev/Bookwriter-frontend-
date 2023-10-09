@@ -1,6 +1,6 @@
-/*eslint-disable*/
+/* eslint-disable*/
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Switch, Redirect, and BrowserRouter
+import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -10,24 +10,29 @@ import Settings from "./pages/Settings";
 import "./App.css";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
 
   return (
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          {/* Protected Routes */}
-          <Route path="/books">
-            {/* {authenticated ? <Books /> : <Route component={SignIn} />} */}
-          </Route>
-          <Route path="/settings">
-            {/* {authenticated ? <Settings /> : <Route path="/signin" component={SignIn} />} */}
-          </Route>
-        </Routes>
-      </div>
+    <div className="App">
+      {authenticated && <Navbar />}
+      <Routes>
+        {authenticated ? (
+          <>
+            <Route path="/signin" element={<Navigate to="/" />}  />
+            <Route path="/signup" element={<Navigate to="/" />}  />
+            <Route path="/" element={<Home />} />
+            <Route path="/books" element={<Books />} />
+            <Route path="/settings" element={<Settings />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Navigate to="/signin" />} />
+            <Route path="/home" element={<Navigate to="/signin" />} />
+            <Route path="/books" element={<Navigate to="/signin" />} />
+          </>
+        )}
+      </Routes>
+    </div>
   );
 }
 
