@@ -9,6 +9,7 @@ import Divider from "@mui/material/Divider"; // Import Divider component
 import { useState } from "react";
 import { validateForm } from "../utils/utils";
 import LogoImage from "../logo.svg";
+import { login } from "../api/user";
 
 function SignIn() {
   const [state, setState] = useState({
@@ -36,10 +37,21 @@ function SignIn() {
         ? false
         : true
     ) {
-      // Validation passed, you can perform login logic here
-      console.log("Form submitted with email:", state.email);
-      console.log("Form submitted with password:", state.password);
-      // Clear the errors
+      const payload = {
+        email: state.email,
+        password: state.password,
+      };
+
+      login(payload)
+        .then((respone) => {
+          if (respone.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log("error => ", error);
+        });
+
       setState({ ...state, errors: {} });
     } else {
       // Validation failed, update the state with errors

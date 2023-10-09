@@ -1,5 +1,5 @@
 /* eslint-disable*/
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -10,16 +10,21 @@ import Settings from "./pages/Settings";
 import "./App.css";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(
+    window.localStorage.getItem("token")
+  );
 
+  useEffect(() => {
+    setAuthenticated(window.localStorage.getItem("token"));
+  }, [window.localStorage.getItem("token")]);
   return (
     <div className="App">
       {authenticated && <Navbar />}
       <Routes>
         {authenticated ? (
           <>
-            <Route path="/signin" element={<Navigate to="/" />}  />
-            <Route path="/signup" element={<Navigate to="/" />}  />
+            <Route path="/signin" element={<Navigate to="/" />} />
+            <Route path="/signup" element={<Navigate to="/" />} />
             <Route path="/" element={<Home />} />
             <Route path="/books" element={<Books />} />
             <Route path="/settings" element={<Settings />} />
