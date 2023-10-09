@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider"; // Import Divider component
 import { useState } from "react";
 import { validateForm } from "../utils/utils";
-import LogoImage from "../logo.svg"; // Update with the actual path to your logo image
+import LogoImage from "../logo.svg";
 
 function SignIn() {
   const [state, setState] = useState({
@@ -29,7 +29,13 @@ function SignIn() {
 
     const errors = validateForm(state);
 
-    if (Object.keys(errors).length === 0) {
+    if (
+      state.errors[state.email]
+        ? false
+        : true && state.errors[state.password]
+        ? false
+        : true
+    ) {
       // Validation passed, you can perform login logic here
       console.log("Form submitted with email:", state.email);
       console.log("Form submitted with password:", state.password);
@@ -91,7 +97,7 @@ function SignIn() {
             name="email"
             onChange={(e) => handleChange(e)}
             autoFocus
-            error={!!state.errors.email}
+            error={!!state.errors.email ? true : false}
             helperText={state.errors.email}
           />
           <TextField
@@ -103,7 +109,7 @@ function SignIn() {
             type="password"
             id="password"
             onChange={(e) => handleChange(e)}
-            error={!!state.errors.password}
+            error={!!state.errors.password ? true : false}
             helperText={state.errors.password}
           />
           <Button
