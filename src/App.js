@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable*/
+import React, { useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Books from "./pages/Books";
+import Settings from "./pages/Settings";
+import "./App.css";
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {authenticated && <Navbar />}
+      <Routes>
+        {authenticated ? (
+          <>
+            <Route path="/signin" element={<Navigate to="/" />}  />
+            <Route path="/signup" element={<Navigate to="/" />}  />
+            <Route path="/" element={<Home />} />
+            <Route path="/books" element={<Books />} />
+            <Route path="/settings" element={<Settings />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Navigate to="/signin" />} />
+            <Route path="/home" element={<Navigate to="/signin" />} />
+            <Route path="/books" element={<Navigate to="/signin" />} />
+          </>
+        )}
+      </Routes>
     </div>
   );
 }
