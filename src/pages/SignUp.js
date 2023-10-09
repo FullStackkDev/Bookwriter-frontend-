@@ -10,6 +10,9 @@ import { validateForm } from "../utils/utils";
 import { Divider } from "@mui/material";
 import LogoImage from "../logo.svg";
 import { addNewUser } from "../api/user";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import { googleClientId } from "../utils/constant";
 
 function SignUp() {
   const [state, setState] = useState({
@@ -54,7 +57,19 @@ function SignUp() {
       setState({ ...state, errors });
     }
   };
-
+  const handleGoogle = (decoded) => {
+  
+    // Extract relevant information from the decoded data
+    const { given_name, family_name, email } = decoded;
+  
+    // Set the state with the extracted information
+    setState({
+      ...state,
+      firstName: given_name || "",
+      lastName: family_name || "",
+      email: email || "",
+    });
+  };
   return (
     <Container component="main" maxWidth="sm">
       <Box
@@ -106,6 +121,7 @@ function SignUp() {
             autoFocus
             error={state.errors.firstName ? true : false}
             helperText={state.errors.firstName}
+            value={state.firstName} 
           />
           <TextField
             margin="normal"
@@ -117,6 +133,7 @@ function SignUp() {
             onChange={(e) => handleChange(e)}
             error={state.errors.lastName ? true : false}
             helperText={state.errors.lastName}
+            value={state.lastName} 
           />
           <TextField
             margin="normal"
@@ -129,6 +146,7 @@ function SignUp() {
             autoFocus
             error={state.errors.email ? true : false}
             helperText={state.errors.email}
+            value={state.email} 
           />
           <TextField
             margin="normal"
@@ -166,6 +184,21 @@ function SignUp() {
               <Link href="/signin" variant="body2">
                 {"Already have an account? Sign in"}
               </Link>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <GoogleOAuthProvider clientId={googleClientId}>
+                <GoogleLogin
+                  onSuccess={(credentialResponse) => {
+                    var decoded = jwt_decode(credentialResponse.credential);
+                    handleGoogle(decoded)
+                  }}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              </GoogleOAuthProvider>
             </Grid>
           </Grid>
         </Box>
