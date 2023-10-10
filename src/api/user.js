@@ -12,11 +12,10 @@ export const addNewUser = async (newUser) => {
 };
 
 export const login = async (user) => {
-  console.log(user);
   try {
     const response = await axios.post("/login/", user);
-    console.log(response);
-    window.localStorage.setItem("token", response.data.payload.token);
+    const userDetail = response.data.payload;
+    window.localStorage.setItem("user", JSON.stringify(userDetail));
     return response;
   } catch (error) {
     return error;

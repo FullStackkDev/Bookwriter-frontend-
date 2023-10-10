@@ -27,6 +27,7 @@ function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const location = useLocation();
+  const [firstName, setFirstName] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -46,6 +47,15 @@ function Navbar() {
     return () => {
       window.removeEventListener("resize", updateIsDrawer);
     };
+  }, []);
+  useEffect(() => {
+    // Get the first name from local storage
+    const storedUserJSON = localStorage.getItem("user");
+    if (storedUserJSON) {
+      // Parse the JSON string into a JavaScript object
+      const storedUser = JSON.parse(storedUserJSON);
+      setFirstName(storedUser);
+    }
   }, []);
 
   const drawer = (
@@ -104,7 +114,7 @@ function Navbar() {
           left: "0",
         }}
       >
-        <Tooltip title="Profile">
+        <Tooltip title={firstName ? firstName.name : ""}>
           <IconButton sx={{ p: 3 }}>
             <Avatar alt="Remy Sharp" src="" />
           </IconButton>
@@ -186,8 +196,8 @@ function Navbar() {
               </Box>
             )}
             <Box sx={{ marginLeft: "auto" }}>
-              <Tooltip title="Profile">
-                <IconButton sx={{ p: 0 }}>
+              <Tooltip title={firstName ? firstName.name : ""}>
+                <IconButton sx={{ p: 3 }}>
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
               </Tooltip>

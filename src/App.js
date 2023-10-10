@@ -11,12 +11,12 @@ import "./App.css";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(
-    window.localStorage.getItem("token")
+    window.localStorage.getItem("user")
   );
 
   useEffect(() => {
-    setAuthenticated(window.localStorage.getItem("token"));
-  }, [window.localStorage.getItem("token")]);
+    setAuthenticated(window.localStorage.getItem("user"));
+  }, [window.localStorage.getItem("user")]);
   return (
     <div className="App">
       {authenticated && <Navbar />}
