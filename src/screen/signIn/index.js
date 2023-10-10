@@ -1,8 +1,10 @@
 // SignIn/index.js
 import React, { useState } from "react";
 import SignInDesign from "./design";
-import { validateForm } from "../../utils/utils";
 import { login } from "../../api/user";
+import { validateForm } from "../../utils/utils";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -15,27 +17,33 @@ function SignIn() {
     event.preventDefault();
 
     const errors = validateForm(userData);
-
-    if (
-      userData.errors[userData.email]
-        ? false
-        : true && userData.errors[userData.password]
-        ? false
-        : true
-    ) {
+    if (Object.keys(errors).length === 0) {
       const payload = {
         email: userData.email,
         password: userData.password,
       };
 
       login(payload)
-        .then((respone) => {
-          if (respone.data.success) {
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
             window.location.reload();
+          } else {
+            toast.success(response.data.message, {
+              position: "bottom-left",
+              autoClose: 2500,
+              hideProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "light",
+              type: response.data.success ? "success" : "error",
+            });
           }
         })
         .catch((error) => {
-          console.log("error => ", error);
+          console.log(error);
         });
 
       setUserData({ ...userData, errors: {} });
@@ -64,12 +72,15 @@ function SignIn() {
   };
 
   return (
-    <SignInDesign
-      userData={userData}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      handleGoogle={handleGoogle}
-    />
+    <div>
+      <SignInDesign
+        userData={userData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleGoogle={handleGoogle}
+      />
+      <ToastContainer />
+    </div>
   );
 }
 

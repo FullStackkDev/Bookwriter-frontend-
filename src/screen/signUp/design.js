@@ -60,7 +60,6 @@ function SignUpDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
             label="Email Address"
             name="email"
             onChange={(e) => handleChange(e)}
-            autoFocus
             error={userData.errors.email ? true : false}
             helperText={userData.errors.email}
             value={userData.email}

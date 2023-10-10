@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import SignUpDesign from "./design";
 import { validateForm } from "../../utils/utils";
 import { addNewUser } from "../../api/user";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -35,8 +37,22 @@ function SignUp() {
         phone_no: userData.phoneNo,
       };
       addNewUser(payload)
-        .then((respone) => {
-          console.log(respone);
+        .then((response) => {
+          if (response.data.success) {
+            console.log(response);
+          } else {
+            toast.success(response.data.message, {
+              position: "bottom-left",
+              autoClose: 2500,
+              hideProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "light",
+              type: response.data.success ? "success" : "error",
+            });
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -58,12 +74,15 @@ function SignUp() {
   };
 
   return (
-    <SignUpDesign
-      userData={userData}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      handleGoogle={handleGoogle}
-    />
+    <div>
+      <SignUpDesign
+        userData={userData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleGoogle={handleGoogle}
+      />
+      <ToastContainer />
+    </div>
   );
 }
 

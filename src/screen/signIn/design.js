@@ -51,6 +51,7 @@ function SignInDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
             onChange={(e) => handleChange(e)}
             error={userData.errors.password ? true : false}
             helperText={userData.errors.password}
+            value={userData.password}
           />
           <Button type="submit" fullWidth variant="contained" sx={button}>
             Sign In
