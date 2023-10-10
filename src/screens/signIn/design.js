@@ -10,9 +10,11 @@ import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import LogoImage from "../../logo.svg";
 import jwt_decode from "jwt-decode";
-import { googleClientId } from "../../utils/constant";
 import { signInStyles } from "./style";
-function SignInDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
+import { handleChange } from "./helper/helper";
+import { googleClientId } from "./validator/constant";
+
+function SignInDesign({ userData, setUserData, handleSubmit, handleGoogle }) {
   const { boxContainer, title, form, button } = signInStyles;
 
   return (
@@ -34,7 +36,9 @@ function SignInDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
             id="email"
             label="Email Address"
             name="email"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             autoFocus
             error={userData.errors.email ? true : false}
             helperText={userData.errors.email}
@@ -48,7 +52,9 @@ function SignInDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
             label="Password"
             type="password"
             id="password"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             error={userData.errors.password ? true : false}
             helperText={userData.errors.password}
             value={userData.password}

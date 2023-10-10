@@ -1,10 +1,10 @@
 // SignIn/index.js
 import React, { useState } from "react";
 import SignInDesign from "./design";
-import { validateForm } from "../../utils/utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login, loginWith3rdParty } from "./api";
+import { validateForm } from "./validator/utils";
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -53,14 +53,6 @@ function SignIn() {
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
-
   const handleGoogle = (decoded) => {
     const { given_name, family_name, email, sub } = decoded;
     const payload = {
@@ -97,7 +89,7 @@ function SignIn() {
     <div>
       <SignInDesign
         userData={userData}
-        handleChange={handleChange}
+        setUserData={setUserData}
         handleSubmit={handleSubmit}
         handleGoogle={handleGoogle}
       />
