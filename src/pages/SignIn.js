@@ -10,6 +10,9 @@ import { useState } from "react";
 import { validateForm } from "../utils/utils";
 import LogoImage from "../logo.svg";
 import { login } from "../api/user";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import { googleClientId } from "../utils/constant";
 
 function SignIn() {
   const [state, setState] = useState({
@@ -59,6 +62,18 @@ function SignIn() {
     }
   };
 
+  const handleGoogle = (decoded) => {
+    // Extract relevant information from the decoded data
+    const { given_name, family_name, email } = decoded;
+
+    // Set the state with the extracted information
+    setState({
+      ...state,
+      firstName: given_name || "",
+      lastName: family_name || "",
+      email: email || "",
+    });
+  };
   return (
     <Container component="main" maxWidth="sm">
       <Box
@@ -137,6 +152,22 @@ function SignIn() {
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <GoogleOAuthProvider clientId={googleClientId}>
+                <GoogleLogin
+                  onSuccess={(credentialResponse) => {
+                    var decoded = jwt_decode(credentialResponse.credential);
+                    console.log(decoded);
+                    handleGoogle(decoded);
+                  }}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              </GoogleOAuthProvider>
             </Grid>
           </Grid>
         </Box>
