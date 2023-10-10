@@ -59,7 +59,7 @@ function Navbar() {
     if (storedUserJSON) {
       // Parse the JSON string into a JavaScript object
       const storedUser = JSON.parse(storedUserJSON);
-      setFirstName(storedUser);
+      setFirstName(`${storedUser.first_name} ${storedUser.last_name}`);
     }
   }, []);
 
@@ -124,7 +124,7 @@ function Navbar() {
             Logout
           </Button>
         </Box>
-        <Tooltip title={firstName ? firstName.name : ""}>
+        <Tooltip title={firstName ? firstName : ""}>
           <IconButton sx={{ p: 3 }}>
             <Avatar alt="Remy Sharp" src="" />
           </IconButton>
@@ -212,7 +212,7 @@ function Navbar() {
               </Button>
             </Box>
             <Box sx={{ marginLeft: "auto" }}>
-              <Tooltip title={firstName ? firstName.name : ""}>
+              <Tooltip title={firstName ? firstName : ""}>
                 <IconButton sx={{ p: 3 }}>
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>

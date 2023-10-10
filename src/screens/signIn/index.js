@@ -4,7 +4,7 @@ import SignInDesign from "./design";
 import { validateForm } from "../../utils/utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { login } from "./api";
+import { login, loginWith3rdParty } from "./api";
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -62,13 +62,35 @@ function SignIn() {
   };
 
   const handleGoogle = (decoded) => {
-    const { given_name, family_name, email } = decoded;
-    setUserData({
-      ...userData,
-      firstName: given_name || "",
-      lastName: family_name || "",
-      email: email || "",
-    });
+    const { given_name, family_name, email, sub } = decoded;
+    const payload = {
+      first_name: given_name,
+      last_name: family_name ? family_name : " ",
+      email: email,
+      third_party_user_id: sub,
+      third_party_type: "Google",
+    };
+    loginWith3rdParty(payload)
+      .then((response) => {
+        if (response.data.success) {
+          window.location.href = "/";
+        } else {
+          toast.success(response.data.message, {
+            position: "bottom-left",
+            autoClose: 2500,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+            type: response.data.success ? "success" : "error",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
