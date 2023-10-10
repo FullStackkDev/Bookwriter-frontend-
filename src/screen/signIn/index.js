@@ -27,7 +27,7 @@ function SignIn() {
         .then((response) => {
           console.log(response);
           if (response.data.success) {
-            window.location.reload();
+            window.location.href = "/";
           } else {
             toast.success(response.data.message, {
               position: "bottom-left",

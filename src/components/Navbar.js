@@ -41,6 +41,11 @@ function Navbar() {
     setIsDrawer(window.innerWidth < 480);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  };
+
   useEffect(() => {
     window.addEventListener("resize", updateIsDrawer);
     updateIsDrawer();
@@ -114,6 +119,11 @@ function Navbar() {
           left: "0",
         }}
       >
+        <Box sx={{ marginTop: "auto" }}>
+          <Button onClick={handleLogout} fullWidth>
+            Logout
+          </Button>
+        </Box>
         <Tooltip title={firstName ? firstName.name : ""}>
           <IconButton sx={{ p: 3 }}>
             <Avatar alt="Remy Sharp" src="" />
@@ -195,6 +205,12 @@ function Navbar() {
                 ))}
               </Box>
             )}
+            <Box sx={{ marginLeft: "auto" }}>
+              {/* Add Logout button to the app bar */}
+              <Button onClick={handleLogout} color="inherit">
+                Logout
+              </Button>
+            </Box>
             <Box sx={{ marginLeft: "auto" }}>
               <Tooltip title={firstName ? firstName.name : ""}>
                 <IconButton sx={{ p: 3 }}>
