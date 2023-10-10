@@ -1,10 +1,10 @@
 // SignIn/index.js
 import React, { useState } from "react";
 import SignInDesign from "./design";
-import { login } from "../../api/user";
 import { validateForm } from "../../utils/utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { login } from "./api";
 
 function SignIn() {
   const [userData, setUserData] = useState({

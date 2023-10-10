@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import SignUpDesign from "./design";
 import { validateForm } from "../../utils/utils";
-import { addNewUser } from "../../api/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addNewUser } from "./api";
 
 function SignUp() {
   const [userData, setUserData] = useState({
