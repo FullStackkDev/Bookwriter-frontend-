@@ -11,7 +11,8 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { googleClientId } from "../../utils/constant";
-function Design({ userData, handleChange, handleSubmit, handleGoogle }) {
+import { handleGoogle } from "./helper/helper";
+function Design({ userData, handleChange, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
   return (
@@ -92,7 +93,6 @@ function Design({ userData, handleChange, handleSubmit, handleGoogle }) {
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     var decoded = jwt_decode(credentialResponse.credential);
-                    console.log(decoded);
                     handleGoogle(decoded);
                   }}
                   onError={() => {

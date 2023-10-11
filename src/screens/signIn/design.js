@@ -10,10 +10,10 @@ import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
-import { handleChange } from "./helper/helper";
+import { handleChange, handleGoogle } from "./helper/helper";
 import { googleClientId } from "../../utils/constant";
 
-function Design({ userData, setUserData, handleSubmit, handleGoogle }) {
+function Design({ userData, setUserData, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
   return (
@@ -64,7 +64,6 @@ function Design({ userData, setUserData, handleSubmit, handleGoogle }) {
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     var decoded = jwt_decode(credentialResponse.credential);
-                    console.log(decoded);
                     handleGoogle(decoded);
                   }}
                   onError={() => {
