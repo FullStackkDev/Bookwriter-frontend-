@@ -11,13 +11,10 @@ export const login = (payload) => async (dispatch) => {
   }
 };
 
-export const loginWith3rdParty = async (user) => {
+export const loginWith3rdParty = (payload) => async (dispatch) => {
   try {
-    const response = await axios.post("/third-party-user-login/", user);
-    const userDetail = response.data.payload;
-    if (response.data.success) {
-      window.localStorage.setItem("user", JSON.stringify(userDetail));
-    }
+    const response = await axios.post("/third-party-user-login/", payload);
+    dispatch(userActions.addUser(response.data.payload));
     return response;
   } catch (error) {
     return error;

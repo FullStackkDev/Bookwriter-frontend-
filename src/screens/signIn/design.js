@@ -14,9 +14,11 @@ import { googleClientId } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "./helper/toast";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
+  const dispatch = useDispatch();
 
   return (
     <Container component="main" maxWidth="sm">
@@ -66,7 +68,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     var decoded = jwt_decode(credentialResponse.credential);
-                    handleGoogle(decoded);
+                    handleGoogle(decoded, dispatch);
                   }}
                   onError={() => {
                     showToast("Unable to register, please try again!", "error");

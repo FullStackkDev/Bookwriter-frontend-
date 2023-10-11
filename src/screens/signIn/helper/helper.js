@@ -11,7 +11,7 @@ export const handleChange = (event, stateData, setStateData) => {
   });
 };
 
-export const handleGoogle = (decoded) => {
+export const handleGoogle = (decoded, dispatch) => {
   const { given_name, family_name, email, sub } = decoded;
   const payload = {
     first_name: given_name,
@@ -20,7 +20,7 @@ export const handleGoogle = (decoded) => {
     third_party_user_id: sub,
     third_party_type: "Google",
   };
-  loginWith3rdParty(payload)
+  dispatch(loginWith3rdParty(payload))
     .then((response) => {
       if (response.data.success) {
         window.location.href = "/";

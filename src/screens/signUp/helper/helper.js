@@ -11,7 +11,7 @@ export const handleChange = (event, stateData, setStateData) => {
   });
 };
 
-export const handleGoogle = (decoded) => {
+export const handleGoogle = (decoded, dispatch) => {
   const { given_name, family_name, email, sub } = decoded;
   const payload = {
     first_name: given_name,
@@ -20,7 +20,8 @@ export const handleGoogle = (decoded) => {
     third_party_user_id: sub,
     third_party_type: "Google",
   };
-  loginWith3rdParty(payload)
+
+  dispatch(loginWith3rdParty(payload))
     .then((response) => {
       if (response.data.success) {
         window.location.href = "/";
@@ -34,4 +35,34 @@ export const handleGoogle = (decoded) => {
     .catch((error) => {
       showToast("Unable to register, please try again!", "error");
     });
+
+  // dispatch(loginWith3rdParty(payload))
+  // .then((response) => {
+  //   if (response.data.success) {
+  //     window.location.href = "/";
+  //   } else {
+  //     showToast(
+  //       response.data.message,
+  //       response.data.success ? "success" : "error"
+  //     );
+  //   }
+  // })
+  // .catch((error) => {
+  //   showToast("Unable to register, please try again!", "error");
+  // });
+
+  // loginWith3rdParty(payload)
+  //   .then((response) => {
+  //     if (response.data.success) {
+  //       window.location.href = "/";
+  //     } else {
+  //       showToast(
+  //         response.data.message,
+  //         response.data.success ? "success" : "error"
+  //       );
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     showToast("Unable to register, please try again!", "error");
+  //   });
 };
