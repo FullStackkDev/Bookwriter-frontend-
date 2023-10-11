@@ -8,9 +8,8 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import LogoImage from "../../logo.svg";
 import jwt_decode from "jwt-decode";
-import { styles } from "./style";
+import { Logo, styles } from "./style";
 import { googleClientId } from "./validator/constant";
 function Design({ userData, handleChange, handleSubmit, handleGoogle }) {
   const { boxContainer, title, form, button } = styles;
@@ -18,7 +17,7 @@ function Design({ userData, handleChange, handleSubmit, handleGoogle }) {
   return (
     <Container component="main" maxWidth="sm">
       <Box sx={boxContainer}>
-        <img src={LogoImage} alt="Logo" width="200" height="100" />
+        <Logo />
         <Typography component="h1" variant="h5" sx={title}>
           Book Writer
         </Typography>
