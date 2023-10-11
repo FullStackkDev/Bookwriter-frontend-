@@ -25,7 +25,6 @@ function SignIn() {
 
       login(payload)
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
             window.location.href = "/";
           } else {
@@ -43,7 +42,17 @@ function SignIn() {
           }
         })
         .catch((error) => {
-          console.log(error);
+          toast.success("Unable to login, please try again! ", {
+            position: "bottom-left",
+            autoClose: 2500,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+            type: "error",
+          });
         });
 
       setUserData({ ...userData, errors: {} });

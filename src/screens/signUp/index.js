@@ -39,7 +39,6 @@ function SignUp() {
       addNewUser(payload)
         .then((response) => {
           if (response.data.success) {
-            console.log(response);
           } else {
             toast.success(response.data.message, {
               position: "bottom-left",
@@ -55,7 +54,17 @@ function SignUp() {
           }
         })
         .catch((error) => {
-          console.log(error);
+          toast.success("Unable to register, please try again! ", {
+            position: "bottom-left",
+            autoClose: 2500,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+            type: "error",
+          });
         });
       setUserData({ ...userData, errors: {} });
     } else {

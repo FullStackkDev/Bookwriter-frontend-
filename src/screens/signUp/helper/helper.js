@@ -39,6 +39,16 @@ export const handleGoogle = (decoded) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      toast.success("Unable to register, please try again! ", {
+        position: "bottom-left",
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        type: "error",
+      });
     });
 };

@@ -12,7 +12,7 @@ import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { googleClientId } from "../../utils/constant";
 import { handleGoogle } from "./helper/helper";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 function Design({ userData, handleChange, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
@@ -97,7 +97,17 @@ function Design({ userData, handleChange, handleSubmit }) {
                     handleGoogle(decoded);
                   }}
                   onError={() => {
-                    console.log("Login Failed");
+                    toast.success("Unable to register, please try again! ", {
+                      position: "bottom-left",
+                      autoClose: 2500,
+                      hideProgressBar: true,
+                      closeOnClick: false,
+                      pauseOnHover: false,
+                      draggable: false,
+                      progress: undefined,
+                      theme: "light",
+                      type: "error",
+                    });
                   }}
                 />
               </GoogleOAuthProvider>
