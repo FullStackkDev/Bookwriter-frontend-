@@ -10,10 +10,10 @@ import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import LogoImage from "../../logo.svg";
 import jwt_decode from "jwt-decode";
-import { googleClientId } from "../../utils/constant";
-import { signUpStyles } from "./style";
-function SignUpDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
-  const { boxContainer, title, form, button } = signUpStyles;
+import { styles } from "./style";
+import { googleClientId } from "./validator/constant";
+function Design({ userData, handleChange, handleSubmit, handleGoogle }) {
+  const { boxContainer, title, form, button } = styles;
 
   return (
     <Container component="main" maxWidth="sm">
@@ -87,16 +87,6 @@ function SignUpDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
             error={userData.errors.password ? true : false}
             helperText={userData.errors.password}
           />
-          <Button type="submit" fullWidth variant="contained" sx={button}>
-            Sign Up
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Link href="/signin" variant="body2">
-                {"Already have an account? Sign in"}
-              </Link>
-            </Grid>
-          </Grid>
           <Grid container>
             <Grid item>
               <GoogleOAuthProvider clientId={googleClientId}>
@@ -113,10 +103,20 @@ function SignUpDesign({ userData, handleChange, handleSubmit, handleGoogle }) {
               </GoogleOAuthProvider>
             </Grid>
           </Grid>
+          <Button type="submit" fullWidth variant="contained" sx={button}>
+            Sign Up
+          </Button>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                {"Already have an account?"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
   );
 }
 
-export default SignUpDesign;
+export default Design;
