@@ -16,14 +16,6 @@ function SignUp() {
     errors: {},
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validateForm(userData);
@@ -39,6 +31,25 @@ function SignUp() {
       addNewUser(payload)
         .then((response) => {
           if (response.data.success) {
+            toast.success(response.data.message, {
+              position: "bottom-left",
+              autoClose: 2500,
+              hideProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "light",
+              type: response.data.success ? "success" : "error",
+            });
+            setUserData({
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+              phoneNo: "",
+              errors: {},
+            });
           } else {
             toast.success(response.data.message, {
               position: "bottom-left",
@@ -76,7 +87,7 @@ function SignUp() {
     <div>
       <Design
         userData={userData}
-        handleChange={handleChange}
+        setUserData={setUserData}
         handleSubmit={handleSubmit}
       />
     </div>

@@ -11,9 +11,9 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { googleClientId } from "../../utils/constant";
-import { handleGoogle } from "./helper/helper";
+import { handleChange, handleGoogle } from "./helper/helper";
 import { ToastContainer, toast } from "react-toastify";
-function Design({ userData, handleChange, handleSubmit }) {
+function Design({ userData, setUserData, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
   return (
@@ -35,7 +35,9 @@ function Design({ userData, handleChange, handleSubmit }) {
             id="firstName"
             label="First Name"
             name="firstName"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             autoFocus
             error={userData.errors.firstName ? true : false}
             helperText={userData.errors.firstName}
@@ -48,7 +50,9 @@ function Design({ userData, handleChange, handleSubmit }) {
             name="lastName"
             label="Last Name"
             id="lastName"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             error={userData.errors.lastName ? true : false}
             helperText={userData.errors.lastName}
             value={userData.lastName}
@@ -60,7 +64,9 @@ function Design({ userData, handleChange, handleSubmit }) {
             id="email"
             label="Email Address"
             name="email"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             error={userData.errors.email ? true : false}
             helperText={userData.errors.email}
             value={userData.email}
@@ -72,9 +78,12 @@ function Design({ userData, handleChange, handleSubmit }) {
             id="phoneNo"
             label="Phone number"
             name="phoneNo"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             error={userData.errors.phoneNo ? true : false}
             helperText={userData.errors.phoneNo}
+            value={userData.phoneNo}
           />
           <TextField
             margin="normal"
@@ -84,9 +93,12 @@ function Design({ userData, handleChange, handleSubmit }) {
             label="Password"
             type="password"
             id="password"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
             error={userData.errors.password ? true : false}
             helperText={userData.errors.password}
+            value={userData.password}
           />
           <Grid container>
             <Grid item>
