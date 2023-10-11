@@ -1,6 +1,6 @@
 // SignUp/index.js
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addNewUser } from "./api";
 import { validateForm } from "./validator/utils";
@@ -70,7 +70,6 @@ function SignUp() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <ToastContainer />
     </div>
   );
 }

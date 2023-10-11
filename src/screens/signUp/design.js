@@ -12,6 +12,7 @@ import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { googleClientId } from "../../utils/constant";
 import { handleGoogle } from "./helper/helper";
+import { ToastContainer } from "react-toastify";
 function Design({ userData, handleChange, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
@@ -114,6 +115,7 @@ function Design({ userData, handleChange, handleSubmit }) {
           </Grid>
         </Box>
       </Box>
+      <ToastContainer />
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 // SignIn/index.js
 import React, { useState } from "react";
 import Design from "./design";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login } from "./api";
 import { validateForm } from "./validator/utils";
@@ -60,7 +60,6 @@ function SignIn() {
         setUserData={setUserData}
         handleSubmit={handleSubmit}
       />
-      <ToastContainer />
     </div>
   );
 }
