@@ -1,10 +1,10 @@
 // SignUp/index.js
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addNewUser } from "./api";
 import { validateForm } from "./validator/utils";
 import Design from "./design";
+import { showToast } from "./helper/toast";
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -31,17 +31,10 @@ function SignUp() {
       addNewUser(payload)
         .then((response) => {
           if (response.data.success) {
-            toast.success(response.data.message, {
-              position: "bottom-left",
-              autoClose: 2500,
-              hideProgressBar: true,
-              closeOnClick: false,
-              pauseOnHover: false,
-              draggable: false,
-              progress: undefined,
-              theme: "light",
-              type: response.data.success ? "success" : "error",
-            });
+            showToast(
+              response.data.message,
+              response.data.success ? "success" : "error"
+            );
             setUserData({
               firstName: "",
               lastName: "",
@@ -51,31 +44,14 @@ function SignUp() {
               errors: {},
             });
           } else {
-            toast.success(response.data.message, {
-              position: "bottom-left",
-              autoClose: 2500,
-              hideProgressBar: true,
-              closeOnClick: false,
-              pauseOnHover: false,
-              draggable: false,
-              progress: undefined,
-              theme: "light",
-              type: response.data.success ? "success" : "error",
-            });
+            showToast(
+              response.data.message,
+              response.data.success ? "success" : "error"
+            );
           }
         })
         .catch((error) => {
-          toast.success("Unable to register, please try again! ", {
-            position: "bottom-left",
-            autoClose: 2500,
-            hideProgressBar: true,
-            closeOnClick: false,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            theme: "light",
-            type: "error",
-          });
+          showToast("Unable to register, please try again!", "error");
         });
       setUserData({ ...userData, errors: {} });
     } else {

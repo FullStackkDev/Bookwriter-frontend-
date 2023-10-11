@@ -12,7 +12,8 @@ import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { googleClientId } from "../../utils/constant";
 import { handleChange, handleGoogle } from "./helper/helper";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { showToast } from "./helper/toast";
 function Design({ userData, setUserData, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
@@ -109,17 +110,7 @@ function Design({ userData, setUserData, handleSubmit }) {
                     handleGoogle(decoded);
                   }}
                   onError={() => {
-                    toast.success("Unable to register, please try again! ", {
-                      position: "bottom-left",
-                      autoClose: 2500,
-                      hideProgressBar: true,
-                      closeOnClick: false,
-                      pauseOnHover: false,
-                      draggable: false,
-                      progress: undefined,
-                      theme: "light",
-                      type: "error",
-                    });
+                    showToast("Unable to register, please try again!", "error");
                   }}
                 />
               </GoogleOAuthProvider>

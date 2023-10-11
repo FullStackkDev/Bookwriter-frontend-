@@ -1,7 +1,7 @@
 // handle Input Change.
 
-import { toast } from "react-toastify";
 import { loginWith3rdParty } from "../api";
+import { showToast } from "./toast";
 
 export const handleChange = (event, userData, setUserData) => {
   const { name, value } = event.target;
@@ -25,30 +25,13 @@ export const handleGoogle = (decoded) => {
       if (response.data.success) {
         window.location.href = "/";
       } else {
-        toast.success(response.data.message, {
-          position: "bottom-left",
-          autoClose: 2500,
-          hideProgressBar: true,
-          closeOnClick: false,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-          theme: "light",
-          type: response.data.success ? "success" : "error",
-        });
+        showToast(
+          response.data.message,
+          response.data.success ? "success" : "error"
+        );
       }
     })
     .catch((error) => {
-      toast.success("Unable to register, please try again! ", {
-        position: "bottom-left",
-        autoClose: 2500,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-        type: "error",
-      });
+      showToast("Unable to register, please try again!", "error");
     });
 };

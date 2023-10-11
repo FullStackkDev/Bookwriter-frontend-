@@ -1,10 +1,10 @@
 // SignIn/index.js
 import React, { useState } from "react";
 import Design from "./design";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login } from "./api";
 import { validateForm } from "./validator/utils";
+import { showToast } from "./helper/toast";
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -28,31 +28,14 @@ function SignIn() {
           if (response.data.success) {
             window.location.href = "/";
           } else {
-            toast.success(response.data.message, {
-              position: "bottom-left",
-              autoClose: 2500,
-              hideProgressBar: true,
-              closeOnClick: false,
-              pauseOnHover: false,
-              draggable: false,
-              progress: undefined,
-              theme: "light",
-              type: response.data.success ? "success" : "error",
-            });
+            showToast(
+              response.data.message,
+              response.data.success ? "success" : "error"
+            );
           }
         })
         .catch((error) => {
-          toast.success("Unable to login, please try again! ", {
-            position: "bottom-left",
-            autoClose: 2500,
-            hideProgressBar: true,
-            closeOnClick: false,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            theme: "light",
-            type: "error",
-          });
+          showToast("Unable to register, please try again!", "error");
         });
 
       setUserData({ ...userData, errors: {} });
