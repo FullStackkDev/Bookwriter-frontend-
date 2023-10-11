@@ -10,14 +10,15 @@ function SignIn() {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
-    errors: {},
   });
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const errors = validateForm(userData);
-    if (Object.keys(errors).length === 0) {
+    const validationErrors = validateForm(userData);
+
+    if (Object.keys(validationErrors).length === 0) {
       const payload = {
         email: userData.email,
         password: userData.password,
@@ -38,10 +39,10 @@ function SignIn() {
           showToast("Unable to register, please try again!", "error");
         });
 
-      setUserData({ ...userData, errors: {} });
+      setErrors({});
     } else {
       // Validation failed, update the state with errors
-      setUserData({ ...userData, errors });
+      setErrors(validationErrors);
     }
   };
 
@@ -50,6 +51,7 @@ function SignIn() {
       <Design
         userData={userData}
         setUserData={setUserData}
+        errors={errors}
         handleSubmit={handleSubmit}
       />
     </div>

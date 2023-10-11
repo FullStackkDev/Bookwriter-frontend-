@@ -15,7 +15,7 @@ import { googleClientId } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "./helper/toast";
 
-function Design({ userData, setUserData, handleSubmit }) {
+function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
   return (
@@ -41,8 +41,8 @@ function Design({ userData, setUserData, handleSubmit }) {
               handleChange(e, userData, setUserData);
             }}
             autoFocus
-            error={userData.errors.email ? true : false}
-            helperText={userData.errors.email}
+            error={errors.email ? true : false}
+            helperText={errors.email}
             value={userData.email}
           />
           <TextField
@@ -56,8 +56,8 @@ function Design({ userData, setUserData, handleSubmit }) {
             onChange={(e) => {
               handleChange(e, userData, setUserData);
             }}
-            error={userData.errors.password ? true : false}
-            helperText={userData.errors.password}
+            error={errors.password ? true : false}
+            helperText={errors.password}
             value={userData.password}
           />
           <Grid container>
