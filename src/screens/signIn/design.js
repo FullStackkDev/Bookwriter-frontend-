@@ -11,7 +11,7 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { handleChange } from "./helper/helper";
-import { googleClientId } from "./validator/constant";
+import { googleClientId } from "../../utils/constant";
 
 function Design({ userData, setUserData, handleSubmit, handleGoogle }) {
   const { boxContainer, title, form, button } = styles;

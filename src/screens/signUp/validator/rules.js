@@ -26,5 +26,3 @@ export const validationRules = [
     errorMessage: "Password must be at least 8 characters long.",
   },
 ];
-
-export const googleClientId = process.env.REACT_APP_GOOGLECLIENTID;

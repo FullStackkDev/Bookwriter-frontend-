@@ -1,4 +1,4 @@
-import { validationRules } from "./constant";
+import { validationRules } from "./rules";
 
 // validation
 export const validateForm = (formData) => {

@@ -10,7 +10,7 @@ import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
-import { googleClientId } from "./validator/constant";
+import { googleClientId } from "../../utils/constant";
 function Design({ userData, handleChange, handleSubmit, handleGoogle }) {
   const { boxContainer, title, form, button } = styles;
 
