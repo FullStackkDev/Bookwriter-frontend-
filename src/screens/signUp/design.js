@@ -14,7 +14,7 @@ import { googleClientId } from "../../utils/constant";
 import { handleChange, handleGoogle } from "./helper/helper";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "./helper/toast";
-function Design({ userData, setUserData, handleSubmit }) {
+function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
 
   return (
@@ -40,8 +40,8 @@ function Design({ userData, setUserData, handleSubmit }) {
               handleChange(e, userData, setUserData);
             }}
             autoFocus
-            error={userData.errors.firstName ? true : false}
-            helperText={userData.errors.firstName}
+            error={errors.firstName ? true : false}
+            helperText={errors.firstName}
             value={userData.firstName}
           />
           <TextField
@@ -54,8 +54,8 @@ function Design({ userData, setUserData, handleSubmit }) {
             onChange={(e) => {
               handleChange(e, userData, setUserData);
             }}
-            error={userData.errors.lastName ? true : false}
-            helperText={userData.errors.lastName}
+            error={errors.lastName ? true : false}
+            helperText={errors.lastName}
             value={userData.lastName}
           />
           <TextField
@@ -68,8 +68,8 @@ function Design({ userData, setUserData, handleSubmit }) {
             onChange={(e) => {
               handleChange(e, userData, setUserData);
             }}
-            error={userData.errors.email ? true : false}
-            helperText={userData.errors.email}
+            error={errors.email ? true : false}
+            helperText={errors.email}
             value={userData.email}
           />
           <TextField
@@ -82,8 +82,8 @@ function Design({ userData, setUserData, handleSubmit }) {
             onChange={(e) => {
               handleChange(e, userData, setUserData);
             }}
-            error={userData.errors.phoneNo ? true : false}
-            helperText={userData.errors.phoneNo}
+            error={errors.phoneNo ? true : false}
+            helperText={errors.phoneNo}
             value={userData.phoneNo}
           />
           <TextField
@@ -97,8 +97,8 @@ function Design({ userData, setUserData, handleSubmit }) {
             onChange={(e) => {
               handleChange(e, userData, setUserData);
             }}
-            error={userData.errors.password ? true : false}
-            helperText={userData.errors.password}
+            error={errors.password ? true : false}
+            helperText={errors.password}
             value={userData.password}
           />
           <Grid container>

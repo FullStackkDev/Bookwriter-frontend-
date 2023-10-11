@@ -13,14 +13,14 @@ function SignUp() {
     phoneNo: "",
     email: "",
     password: "",
-    errors: {},
   });
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const errors = validateForm(userData);
+    const validationErrors = validateForm(userData);
 
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(validationErrors).length === 0) {
       const payload = {
         first_name: userData.firstName,
         last_name: userData.lastName,
@@ -41,7 +41,6 @@ function SignUp() {
               email: "",
               password: "",
               phoneNo: "",
-              errors: {},
             });
           } else {
             showToast(
@@ -53,9 +52,10 @@ function SignUp() {
         .catch((error) => {
           showToast("Unable to register, please try again!", "error");
         });
-      setUserData({ ...userData, errors: {} });
+      setErrors({});
     } else {
-      setUserData({ ...userData, errors });
+      // Validation failed, update the state with errors
+      setErrors(validationErrors);
     }
   };
 
@@ -64,6 +64,7 @@ function SignUp() {
       <Design
         userData={userData}
         setUserData={setUserData}
+        errors={errors}
         handleSubmit={handleSubmit}
       />
     </div>

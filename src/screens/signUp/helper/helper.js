@@ -3,10 +3,10 @@
 import { loginWith3rdParty } from "../api";
 import { showToast } from "./toast";
 
-export const handleChange = (event, userData, setUserData) => {
+export const handleChange = (event, stateData, setStateData) => {
   const { name, value } = event.target;
-  setUserData({
-    ...userData,
+  setStateData({
+    ...stateData,
     [name]: value,
   });
 };
