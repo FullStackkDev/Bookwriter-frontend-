@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
@@ -14,6 +13,7 @@ import { handleChange, handleGoogle } from "./helper/helper";
 import { googleClientId } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "./helper/toast";
+import { Link } from "react-router-dom";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
@@ -80,7 +80,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
           </Button>
           <Grid container justifyContent="center">
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link to={"/signup"} variant="body2">
                 {"Don't have an account?"}
               </Link>
             </Grid>

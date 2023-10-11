@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { login } from "./api";
 import { validateForm } from "./validator/utils";
 import { showToast } from "./helper/toast";
+import { useDispatch } from "react-redux";
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -12,6 +13,7 @@ function SignIn() {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,7 +26,7 @@ function SignIn() {
         password: userData.password,
       };
 
-      login(payload)
+      dispatch(login(payload))
         .then((response) => {
           if (response.data.success) {
             window.location.href = "/";
@@ -38,7 +40,6 @@ function SignIn() {
         .catch((error) => {
           showToast("Unable to register, please try again!", "error");
         });
-
       setErrors({});
     } else {
       // Validation failed, update the state with errors

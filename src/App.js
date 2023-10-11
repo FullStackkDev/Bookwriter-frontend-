@@ -8,15 +8,17 @@ import SignUp from "../src/screens/signUp";
 import Books from "./pages/Books";
 import Settings from "./pages/Settings";
 import "./App.css";
+import { useSelector } from "react-redux";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(
     window.localStorage.getItem("user")
   );
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     setAuthenticated(window.localStorage.getItem("user"));
-  }, [window.localStorage.getItem("user")]);
+  }, [user]);
   return (
     <div className="App">
       {authenticated && <Navbar />}

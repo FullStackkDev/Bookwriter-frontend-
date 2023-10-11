@@ -17,6 +17,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
 import logo from "../logo.svg";
+import { userActions } from "../Redux/store/userSlice";
+import { useDispatch } from "react-redux";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -28,6 +30,7 @@ function Navbar() {
   const [isDrawer, setIsDrawer] = useState(false);
   const location = useLocation();
   const [firstName, setFirstName] = useState("");
+  const dispatch = useDispatch();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -42,8 +45,7 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.href = "/";
+    dispatch(userActions.logoutUser());
   };
 
   useEffect(() => {
