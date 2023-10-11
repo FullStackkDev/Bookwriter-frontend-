@@ -10,12 +10,12 @@ import Link from "@mui/material/Link";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import LogoImage from "../../logo.svg";
 import jwt_decode from "jwt-decode";
-import { signInStyles } from "./style";
+import { styles } from "./style";
 import { handleChange } from "./helper/helper";
 import { googleClientId } from "./validator/constant";
 
-function SignInDesign({ userData, setUserData, handleSubmit, handleGoogle }) {
-  const { boxContainer, title, form, button } = signInStyles;
+function Design({ userData, setUserData, handleSubmit, handleGoogle }) {
+  const { boxContainer, title, form, button } = styles;
 
   return (
     <Container component="main" maxWidth="sm">
@@ -59,16 +59,6 @@ function SignInDesign({ userData, setUserData, handleSubmit, handleGoogle }) {
             helperText={userData.errors.password}
             value={userData.password}
           />
-          <Button type="submit" fullWidth variant="contained" sx={button}>
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
           <Grid container>
             <Grid item>
               <GoogleOAuthProvider clientId={googleClientId}>
@@ -85,10 +75,20 @@ function SignInDesign({ userData, setUserData, handleSubmit, handleGoogle }) {
               </GoogleOAuthProvider>
             </Grid>
           </Grid>
+          <Button type="submit" fullWidth variant="contained" sx={button}>
+            Sign In
+          </Button>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Don't have an account?"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
   );
 }
 
-export default SignInDesign;
+export default Design;

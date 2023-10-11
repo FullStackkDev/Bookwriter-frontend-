@@ -1,6 +1,6 @@
 // SignIn/index.js
 import React, { useState } from "react";
-import SignInDesign from "./design";
+import Design from "./design";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login, loginWith3rdParty } from "./api";
@@ -87,7 +87,7 @@ function SignIn() {
 
   return (
     <div>
-      <SignInDesign
+      <Design
         userData={userData}
         setUserData={setUserData}
         handleSubmit={handleSubmit}

@@ -1,5 +1,5 @@
 // SignIn/styles.js
-export const signInStyles = {
+export const styles = {
   boxContainer: {
     boxShadow: 3,
     borderRadius: 2,
