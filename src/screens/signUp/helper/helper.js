@@ -1,6 +1,6 @@
 // handle Input Change.
 
-import { loginWith3rdParty } from "../api";
+import { loginWith3rdParty } from "../../../api/thirdPartyLogin";
 import { showToast } from "./toast";
 
 export const handleChange = (event, stateData, setStateData) => {
@@ -23,9 +23,7 @@ export const handleGoogle = (decoded, dispatch) => {
 
   dispatch(loginWith3rdParty(payload))
     .then((response) => {
-      if (response.data.success) {
-        window.location.href = "/";
-      } else {
+      if (!response.data.success) {
         showToast(
           response.data.message,
           response.data.success ? "success" : "error"
@@ -35,34 +33,4 @@ export const handleGoogle = (decoded, dispatch) => {
     .catch((error) => {
       showToast("Unable to register, please try again!", "error");
     });
-
-  // dispatch(loginWith3rdParty(payload))
-  // .then((response) => {
-  //   if (response.data.success) {
-  //     window.location.href = "/";
-  //   } else {
-  //     showToast(
-  //       response.data.message,
-  //       response.data.success ? "success" : "error"
-  //     );
-  //   }
-  // })
-  // .catch((error) => {
-  //   showToast("Unable to register, please try again!", "error");
-  // });
-
-  // loginWith3rdParty(payload)
-  //   .then((response) => {
-  //     if (response.data.success) {
-  //       window.location.href = "/";
-  //     } else {
-  //       showToast(
-  //         response.data.message,
-  //         response.data.success ? "success" : "error"
-  //       );
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     showToast("Unable to register, please try again!", "error");
-  //   });
 };
