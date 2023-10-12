@@ -1,7 +1,7 @@
 // handle Input Change.
 
-import { loginWith3rdParty } from "../../../api/thirdPartyLogin";
-import { showToast } from "./toast";
+import { loginWith3rdParty } from "../api/thirdPartyLogin";
+import { showToast } from "./tosat";
 
 export const handleChange = (event, stateData, setStateData) => {
   const { name, value } = event.target;
@@ -20,7 +20,6 @@ export const handleGoogle = (decoded, dispatch) => {
     third_party_user_id: sub,
     third_party_type: "Google",
   };
-
   dispatch(loginWith3rdParty(payload))
     .then((response) => {
       if (!response.data.success) {

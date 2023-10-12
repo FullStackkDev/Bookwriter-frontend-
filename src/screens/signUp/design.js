@@ -10,11 +10,11 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { Logo, styles } from "./style";
 import { googleClientId } from "../../utils/constant";
-import { handleChange, handleGoogle } from "./helper/helper";
 import { ToastContainer } from "react-toastify";
-import { showToast } from "./helper/toast";
+import { showToast } from "../../helper/tosat";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { handleChange, handleGoogle } from "../../helper/function";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;

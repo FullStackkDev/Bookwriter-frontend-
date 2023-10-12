@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addNewUser } from "./api";
 import { validateForm } from "./validator/utils";
 import Design from "./design";
-import { showToast } from "./helper/toast";
+import { showToast } from "../../helper/tosat";
 
 function SignUp() {
   const [userData, setUserData] = useState({
