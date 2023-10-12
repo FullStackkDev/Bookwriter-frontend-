@@ -1,17 +1,19 @@
 export const validationRules = [
   {
     field: "firstName",
-    regex: /^[A-Za-z]/,
-    errorMessage: "First name must start with an alphabet.",
+    regex: /^[A-Za-z][A-Za-z0-9'-]*$/,
+    errorMessage:
+      "First name must start with an alphabet with least of 2 character and contain only letters, numbers, hyphens, and apostrophes.",
   },
   {
     field: "lastName",
-    regex: /^[A-Za-z]/,
-    errorMessage: "Last name must start with an alphabet.",
+    regex: /^[A-Za-z][A-Za-z0-9'-]*$/,
+    errorMessage:
+      "Last name must start with an alphabet with least of 2 character and contain only letters, numbers, hyphens, and apostrophes.",
   },
   {
     field: "phoneNo",
-    regex: /^\+?\d{0,3}-?\d{4,15}$/,
+    regex: /^\+\d{2}-\d{10}$/,
     errorMessage:
       "Invalid phone number format. Please use the format: +xx-xxxxxxxxxx",
   },
