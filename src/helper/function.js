@@ -15,7 +15,7 @@ export const handleGoogle = (decoded, dispatch) => {
   const { given_name, family_name, email, sub } = decoded;
   const payload = {
     first_name: given_name,
-    last_name: family_name ? family_name : " ",
+    last_name: family_name ? family_name : given_name,
     email: email,
     third_party_user_id: +sub,
     third_party_type: "Google",
