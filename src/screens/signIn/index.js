@@ -28,9 +28,7 @@ function SignIn() {
 
       dispatch(login(payload))
         .then((response) => {
-          if (response.data.success) {
-            window.location.href = "/";
-          } else {
+          if (!response.data.success) {
             showToast(
               response.data.message,
               response.data.success ? "success" : "error"
