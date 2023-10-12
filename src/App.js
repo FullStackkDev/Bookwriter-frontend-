@@ -8,17 +8,26 @@ import SignUp from "../src/screens/signUp";
 import Books from "./pages/Books";
 import Settings from "./pages/Settings";
 import "./App.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // Import the functions
+import { getLocalStorage } from "./helper/localStorage";
+import { userActions } from "./Redux/store/userSlice";
+
 
 function App() {
+  const dispatch = useDispatch();
+
   const [authenticated, setAuthenticated] = useState(
-    window.localStorage.getItem("user")
+    getLocalStorage("user")
   );
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    setAuthenticated(window.localStorage.getItem("user"));
+    setAuthenticated(getLocalStorage("user"));
   }, [user]);
+
+  useEffect(() => {
+    getLocalStorage("user") && !Object.keys(user).lenght && dispatch(userActions.addUserAfterReload(JSON.parse(getLocalStorage("user")))); 
+  }, []);
   return (
     <div className="App">
       {authenticated && <Navbar />}

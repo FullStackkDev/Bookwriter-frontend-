@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeLocalStorage, setLocalStorage } from "../../helper/localStorage";
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -7,10 +8,13 @@ const userSlice = createSlice({
   reducers: {
     addUser(state, action) {
       state.user = action.payload;
-      window.localStorage.setItem("user", JSON.stringify(action.payload));
+      setLocalStorage("user", JSON.stringify(action.payload));
+    },
+    addUserAfterReload(state, action) {
+      state.user = action.payload;
     },
     logoutUser(state, action) {
-      localStorage.removeItem("user");
+      removeLocalStorage("user");
       state.user = {};
     },
   },

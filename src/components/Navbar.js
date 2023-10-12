@@ -18,7 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
 import logo from "../logo.svg";
 import { userActions } from "../Redux/store/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -29,8 +29,8 @@ function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const location = useLocation();
-  const [firstName, setFirstName] = useState("");
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -54,15 +54,6 @@ function Navbar() {
     return () => {
       window.removeEventListener("resize", updateIsDrawer);
     };
-  }, []);
-  useEffect(() => {
-    // Get the first name from local storage
-    const storedUserJSON = localStorage.getItem("user");
-    if (storedUserJSON) {
-      // Parse the JSON string into a JavaScript object
-      const storedUser = JSON.parse(storedUserJSON);
-      setFirstName(`${storedUser.first_name} ${storedUser.last_name}`);
-    }
   }, []);
 
   const drawer = (
@@ -126,7 +117,7 @@ function Navbar() {
             Logout
           </Button>
         </Box>
-        <Tooltip title={firstName ? firstName : ""}>
+        <Tooltip title={`${user.first_name} ${user.last_name}`}>
           <IconButton sx={{ p: 3 }}>
             <Avatar alt="Remy Sharp" src="" />
           </IconButton>
@@ -214,7 +205,7 @@ function Navbar() {
               </Button>
             </Box>
             <Box sx={{ marginLeft: "auto" }}>
-              <Tooltip title={firstName ? firstName : ""}>
+              <Tooltip title={`${user.first_name} ${user.last_name}`}>
                 <IconButton sx={{ p: 3 }}>
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
