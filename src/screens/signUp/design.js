@@ -31,6 +31,21 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <GoogleOAuthProvider clientId={googleClientId}>
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  var decoded = jwt_decode(credentialResponse.credential);
+                  handleGoogle(decoded, dispatch);
+                }}
+                onError={() => {
+                  showToast("Unable to register, please try again!", "error");
+                }}
+              />
+            </GoogleOAuthProvider>
+          </Grid>
+        </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>
           <TextField
             margin="normal"
@@ -104,21 +119,6 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             helperText={errors.password}
             value={userData.password}
           />
-          <Grid container>
-            <Grid item>
-              <GoogleOAuthProvider clientId={googleClientId}>
-                <GoogleLogin
-                  onSuccess={(credentialResponse) => {
-                    var decoded = jwt_decode(credentialResponse.credential);
-                    handleGoogle(decoded, dispatch);
-                  }}
-                  onError={() => {
-                    showToast("Unable to register, please try again!", "error");
-                  }}
-                />
-              </GoogleOAuthProvider>
-            </Grid>
-          </Grid>
           <Button type="submit" fullWidth variant="contained" sx={button}>
             Sign Up
           </Button>
