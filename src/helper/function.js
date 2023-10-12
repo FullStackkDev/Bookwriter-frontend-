@@ -17,7 +17,7 @@ export const handleGoogle = (decoded, dispatch) => {
     first_name: given_name,
     last_name: family_name ? family_name : " ",
     email: email,
-    third_party_user_id: sub,
+    third_party_user_id: +sub,
     third_party_type: "Google",
   };
   dispatch(loginWith3rdParty(payload))

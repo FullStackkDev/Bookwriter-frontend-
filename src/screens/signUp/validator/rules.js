@@ -1,15 +1,15 @@
 export const validationRules = [
   {
     field: "firstName",
-    regex: /^[A-Za-z][A-Za-z0-9'-]*$/,
+    regex: /^[A-Za-z][A-Za-z0-9' -]{2,}$/,
     errorMessage:
-      "First name must start with an alphabet with least of 2 character and contain only letters, numbers, hyphens, and apostrophes.",
+      "First name must start with an alphabet with least of 3 character and contain only letters, numbers, hyphens, and apostrophes.",
   },
   {
     field: "lastName",
-    regex: /^[A-Za-z][A-Za-z0-9'-]*$/,
+    regex: /^[A-Za-z][A-Za-z0-9' -]{2,}$/,
     errorMessage:
-      "Last name must start with an alphabet with least of 2 character and contain only letters, numbers, hyphens, and apostrophes.",
+      "Last name must start with an alphabet with least of 3 character and contain only letters, numbers, hyphens, and apostrophes.",
   },
   {
     field: "phoneNo",
