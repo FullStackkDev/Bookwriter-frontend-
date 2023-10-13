@@ -1,7 +1,6 @@
 /* eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SignIn from "../src/screens/signIn";
 import SignUp from "../src/screens/signUp";
@@ -11,14 +10,12 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux"; // Import the functions
 import { getLocalStorage } from "./helper/localStorage";
 import { userActions } from "./Redux/store/userSlice";
-
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const dispatch = useDispatch();
 
-  const [authenticated, setAuthenticated] = useState(
-    getLocalStorage("user")
-  );
+  const [authenticated, setAuthenticated] = useState(getLocalStorage("user"));
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -26,7 +23,11 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    getLocalStorage("user") && !Object.keys(user).lenght && dispatch(userActions.addUserAfterReload(JSON.parse(getLocalStorage("user")))); 
+    getLocalStorage("user") &&
+      !Object.keys(user).lenght &&
+      dispatch(
+        userActions.addUserAfterReload(JSON.parse(getLocalStorage("user")))
+      );
   }, []);
   return (
     <div className="App">

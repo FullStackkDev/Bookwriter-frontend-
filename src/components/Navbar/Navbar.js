@@ -16,9 +16,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
-import logo from "../logo.svg";
-import { userActions } from "../Redux/store/userSlice";
+import logo from "../../logo.svg";
+import { userActions } from "../../Redux/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { styles } from "./style";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -31,6 +32,15 @@ function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const {
+    drawerDiv,
+    typography,
+    img,
+    box,
+    iconButton,
+    navbarTypography,
+    navbarBox,
+  } = styles;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -57,37 +67,13 @@ function Navbar() {
   }, []);
 
   const drawer = (
-    <div
-      sx={{
-        backgroundColor: "inherit",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div sx={{ drawerDiv }}>
       <Link to="/" onClick={handleDrawerToggle}>
-        <Typography
-          variant="h6"
-          noWrap
-          sx={{
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-            textAlign: "center",
-            mt: 2,
-          }}
-        >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ width: "auto", height: "70px" }}
-          />
+        <Typography variant="h6" noWrap sx={{ typography }}>
+          <img src={logo} alt="Logo" style={{ img }} />
         </Typography>
       </Link>
-      <Divider sx={{ my: 2 }} />
+      <Divider />
       <List>
         {pages.map((page) => (
           <ListItem key={page.label} disablePadding>
@@ -105,13 +91,7 @@ function Navbar() {
           </ListItem>
         ))}
       </List>
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "0",
-          left: "0",
-        }}
-      >
+      <Box sx={{ box }}>
         <Box sx={{ marginTop: "auto" }}>
           <Button onClick={handleLogout} fullWidth>
             Logout
@@ -143,10 +123,7 @@ function Navbar() {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                  marginRight: "10px",
-                }}
+                sx={{ iconButton }}
               >
                 <MenuIcon />
               </IconButton>
@@ -158,29 +135,15 @@ function Navbar() {
                 noWrap
                 component={Link}
                 to="/"
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  flexGrow: 1,
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
+                sx={{ navbarTypography }}
               >
-                <img
-                  src={logo}
-                  alt="Logo"
-                  style={{ width: "auto", height: "70px" }}
-                />
+                <img src={logo} alt="Logo" style={{ img }} />
               </Typography>
             )}
 
             {/* Conditionally render navigation items based on isDrawer */}
             {isDrawer ? null : (
-              <Box
-                sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}
-              >
+              <Box sx={{ navbarBox }}>
                 {pages.map((page) => (
                   <Button
                     key={page.label}
