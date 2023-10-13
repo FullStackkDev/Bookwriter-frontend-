@@ -72,4 +72,14 @@ export const validationRules = [
     regex: /^.{1,}$/,
     errorMessage: "Password is required.",
   },
+  {
+    field: "confirmPassword",
+    regex: /.{8,}/,
+    errorMessage: "Confirm password must be at least 8 characters long.",
+  },
+  {
+    field: "confirmPassword",
+    regex: /^.{1,}$/,
+    errorMessage: "Confirm Password is required.",
+  },
 ];

@@ -119,6 +119,21 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             helperText={errors.password}
             value={userData.password}
           />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            id="confirmPassword"
+            onChange={(e) => {
+              handleChange(e, userData, setUserData);
+            }}
+            error={errors.confirmPassword ? true : false}
+            helperText={errors.confirmPassword}
+            value={userData.confirmPassword}
+          />
           <Button type="submit" fullWidth variant="contained" sx={button}>
             Sign Up
           </Button>

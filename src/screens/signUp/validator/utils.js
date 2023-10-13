@@ -14,5 +14,11 @@ export const validateForm = (formData) => {
     }
   });
 
+  if (!errors.hasOwnProperty("confirmPassword")) {
+    if (formData["password"] !== formData["confirmPassword"]) {
+      errors["confirmPassword"] = "Password must be same";
+    }
+  }
+
   return errors;
 };

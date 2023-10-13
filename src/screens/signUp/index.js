@@ -13,6 +13,7 @@ function SignUp() {
     phoneNo: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -25,8 +26,9 @@ function SignUp() {
         first_name: userData.firstName,
         last_name: userData.lastName,
         email: userData.email,
-        password: userData.password,
         phone_no: userData.phoneNo,
+        password: userData.password,
+        confirm_password: userData.confirmPassword,
       };
       addNewUser(payload)
         .then((response) => {
