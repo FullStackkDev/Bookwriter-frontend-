@@ -1,6 +1,4 @@
 // SignUp/styles.js
-import LogoImage from "../../logo.svg";
-
 export const styles = {
   boxContainer: {
     boxShadow: 3,
@@ -27,7 +25,3 @@ export const styles = {
     mb: 2,
   },
 };
-
-export const Logo = () => (
-  <img src={LogoImage} alt="Logo" width="200" height="100" />
-);

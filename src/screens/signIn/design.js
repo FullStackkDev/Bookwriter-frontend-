@@ -8,13 +8,14 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-import { Logo, styles } from "./style";
+import { styles } from "./style";
 import { handleChange, handleGoogle } from "../../helper/function";
 import { googleClientId } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import BookLogo from "../../components/BookLogo";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
@@ -23,7 +24,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
   return (
     <Container component="main" maxWidth="sm">
       <Box sx={boxContainer}>
-        <Logo />
+        <BookLogo />
         <Typography component="h1" variant="h5" sx={title}>
           Book Writer
         </Typography>
