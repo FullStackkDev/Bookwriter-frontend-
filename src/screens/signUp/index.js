@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { addNewUser } from "./api";
-import { validateForm } from "./validator/utils";
 import Design from "./design";
 import { showToast } from "../../helper/tosat";
+import { validateForm } from "../../utils/utils";
+import { validationRules } from "./validator/rules";
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -19,7 +20,7 @@ function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const validationErrors = validateForm(userData);
+    const validationErrors = validateForm(userData, validationRules);
 
     if (Object.keys(validationErrors).length === 0) {
       const payload = {

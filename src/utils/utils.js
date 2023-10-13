@@ -1,7 +1,5 @@
-import { validationRules } from "./constant";
-
 // validation
-export const validateForm = (formData) => {
+export const validateForm = (formData, validationRules) => {
   const errors = {};
 
   validationRules.forEach((rule) => {
@@ -13,6 +11,15 @@ export const validateForm = (formData) => {
       }
     }
   });
+
+  if (!errors.hasOwnProperty("confirmPassword")) {
+    if (
+      errors.hasOwnProperty("password") &&
+      formData["password"] !== formData["confirmPassword"]
+    ) {
+      errors["confirmPassword"] = "Password must be same";
+    }
+  }
 
   return errors;
 };

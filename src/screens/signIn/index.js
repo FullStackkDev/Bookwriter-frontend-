@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import Design from "./design";
 import "react-toastify/dist/ReactToastify.css";
 import { login } from "./api";
-import { validateForm } from "./validator/utils";
 import { showToast } from "../../helper/tosat";
 import { useDispatch } from "react-redux";
+import { validationRules } from "./validator/rules";
+import { validateForm } from "../../utils/utils";
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -18,7 +19,7 @@ function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const validationErrors = validateForm(userData);
+    const validationErrors = validateForm(userData, validationRules);
 
     if (Object.keys(validationErrors).length === 0) {
       const payload = {
