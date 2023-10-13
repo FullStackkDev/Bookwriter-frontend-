@@ -45,10 +45,7 @@ function SignUp() {
               phoneNo: "",
             });
           } else {
-            showToast(
-              response.data.message,
-              response.data.success ? "success" : "error"
-            );
+            setErrors(response.data.message.error);
           }
         })
         .catch((error) => {
