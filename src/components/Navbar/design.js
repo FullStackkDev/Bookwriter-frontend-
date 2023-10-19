@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,62 +16,35 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
-import logo from "../logo.svg";
+import logo from "../../logo.svg";
+import { styles } from "./style";
 
 const pages = [
   { label: "Home", path: "/" },
   { label: "Books", path: "/books" },
 ];
 
-function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isDrawer, setIsDrawer] = useState(false);
-  const location = useLocation();
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const isSelected = (pagePath) => {
-    return location.pathname === pagePath;
-  };
-
-  const updateIsDrawer = () => {
-    setIsDrawer(window.innerWidth < 480);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateIsDrawer);
-    updateIsDrawer();
-    return () => {
-      window.removeEventListener("resize", updateIsDrawer);
-    };
-  }, []);
+function Design({
+  mobileOpen,
+  isDrawer,
+  handleDrawerToggle,
+  user,
+  handleLogout,
+  isSelected,
+}) {
+  const {
+    drawerDiv,
+    typography,
+    box,
+    iconButton,
+    navbarTypography,
+    navbarBox,
+  } = styles;
 
   const drawer = (
-    <div
-      sx={{
-        backgroundColor: "inherit",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div sx={drawerDiv}>
       <Link to="/" onClick={handleDrawerToggle}>
-        <Typography
-          variant="h6"
-          noWrap
-          sx={{
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-            textAlign: "center",
-            mt: 2,
-          }}
-        >
+        <Typography variant="h6" noWrap sx={typography}>
           <img
             src={logo}
             alt="Logo"
@@ -99,12 +72,15 @@ function Navbar() {
       </List>
       <Box
         sx={{
-          position: "absolute",
-          bottom: "0",
-          left: "0",
+          box,
         }}
       >
-        <Tooltip title="Profile">
+        <Box sx={{ marginTop: "auto" }}>
+          <Button onClick={handleLogout} fullWidth>
+            Logout
+          </Button>
+        </Box>
+        <Tooltip title={`${user.first_name} ${user.last_name}`}>
           <IconButton sx={{ p: 3 }}>
             <Avatar alt="Remy Sharp" src="" />
           </IconButton>
@@ -112,14 +88,12 @@ function Navbar() {
       </Box>
     </div>
   );
-
   return (
     <>
       {/* Mobile Drawer */}
       <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
         {drawer}
       </Drawer>
-
       {/* App Bar */}
       <AppBar position="static">
         <Container maxWidth="xl">
@@ -130,10 +104,7 @@ function Navbar() {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                  marginRight: "10px",
-                }}
+                sx={iconButton}
               >
                 <MenuIcon />
               </IconButton>
@@ -145,15 +116,7 @@ function Navbar() {
                 noWrap
                 component={Link}
                 to="/"
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  flexGrow: 1,
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
+                sx={navbarTypography}
               >
                 <img
                   src={logo}
@@ -165,9 +128,7 @@ function Navbar() {
 
             {/* Conditionally render navigation items based on isDrawer */}
             {isDrawer ? null : (
-              <Box
-                sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}
-              >
+              <Box sx={navbarBox}>
                 {pages.map((page) => (
                   <Button
                     key={page.label}
@@ -186,8 +147,14 @@ function Navbar() {
               </Box>
             )}
             <Box sx={{ marginLeft: "auto" }}>
-              <Tooltip title="Profile">
-                <IconButton sx={{ p: 0 }}>
+              {/* Add Logout button to the app bar */}
+              <Button onClick={handleLogout} color="inherit">
+                Logout
+              </Button>
+            </Box>
+            <Box sx={{ marginLeft: "auto" }}>
+              <Tooltip title={`${user.first_name} ${user.last_name}`}>
+                <IconButton sx={{ p: 3 }}>
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
               </Tooltip>
@@ -199,4 +166,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Design;
