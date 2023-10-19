@@ -14,7 +14,7 @@ export const validateForm = (formData, validationRules) => {
 
   if (!errors.hasOwnProperty("confirmPassword")) {
     if (
-      errors.hasOwnProperty("password") &&
+      formData["confirmPassword"] &&
       formData["password"] !== formData["confirmPassword"]
     ) {
       errors["confirmPassword"] = "Password must be same";
