@@ -9,13 +9,19 @@ import Grid from "@mui/material/Grid";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { styles } from "./style";
-import { handleChange, handleGoogle } from "../../helper/function";
-import { googleClientId } from "../../utils/constant";
+import {
+  handleChange,
+  handleGoogle,
+  handleFaceBook,
+} from "../../helper/function";
+import { googleClientId, facebookAppId } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import BookLogo from "../../components/BookLogo";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
@@ -45,6 +51,17 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
                 }}
               />
             </GoogleOAuthProvider>
+            <LoginSocialFacebook
+              appId={facebookAppId}
+              onResolve={(response) => {
+                handleFaceBook(response.data, dispatch);
+              }}
+              onReject={() => {
+                showToast("Unable to register, please try again!", "error");
+              }}
+            >
+              <FacebookLoginButton />
+            </LoginSocialFacebook>
           </Grid>
         </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>
