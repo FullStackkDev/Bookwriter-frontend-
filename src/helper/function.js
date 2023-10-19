@@ -24,7 +24,30 @@ export const handleGoogle = (decoded, dispatch) => {
     .then((response) => {
       if (!response.data.success) {
         showToast(
-          response.data.message,
+          response.data.message.error.email,
+          response.data.success ? "success" : "error"
+        );
+      }
+    })
+    .catch((error) => {
+      showToast("Unable to register, please try again!", "error");
+    });
+};
+
+export const handleFaceBook = (decoded, dispatch) => {
+  const { first_name, last_name, email, userID } = decoded;
+  const payload = {
+    first_name: first_name,
+    last_name: last_name ? last_name : " ",
+    email: email,
+    third_party_user_id: +userID,
+    third_party_type: "FaceBook",
+  };
+  dispatch(loginWith3rdParty(payload))
+    .then((response) => {
+      if (!response.data.success) {
+        showToast(
+          response.data.message.error.email,
           response.data.success ? "success" : "error"
         );
       }

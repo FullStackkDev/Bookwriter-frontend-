@@ -29,4 +29,6 @@ export const validationRules = [
 
 export const baseURL = process.env.REACT_APP_BASEURL;
 
-export const googleClientId = process.env.REACT_APP_GOOGLECLIENTID
+export const googleClientId = process.env.REACT_APP_GOOGLECLIENTID;
+
+export const facebookAppId = process.env.REACT_APP_FACEBOOKAPPID;
