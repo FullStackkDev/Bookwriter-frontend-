@@ -10,7 +10,7 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux"; // Import the functions
 import { getLocalStorage } from "./helper/localStorage";
 import { userActions } from "./Redux/store/userSlice";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar";
 
 function App() {
   const dispatch = useDispatch();

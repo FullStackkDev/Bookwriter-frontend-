@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -17,8 +17,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
 import logo from "../../logo.svg";
-import { userActions } from "../../Redux/store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./style";
 
 const pages = [
@@ -26,12 +24,13 @@ const pages = [
   { label: "Books", path: "/books" },
 ];
 
-function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isDrawer, setIsDrawer] = useState(false);
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+function Design({
+  mobileOpen,
+  isDrawer,
+  handleDrawerToggle,
+  user,
+  handleLogout,
+}) {
   const {
     drawerDiv,
     typography,
@@ -41,39 +40,24 @@ function Navbar() {
     navbarTypography,
     navbarBox,
   } = styles;
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const location = useLocation();
 
   const isSelected = (pagePath) => {
     return location.pathname === pagePath;
   };
 
-  const updateIsDrawer = () => {
-    setIsDrawer(window.innerWidth < 480);
-  };
-
-  const handleLogout = () => {
-    dispatch(userActions.logoutUser());
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateIsDrawer);
-    updateIsDrawer();
-    return () => {
-      window.removeEventListener("resize", updateIsDrawer);
-    };
-  }, []);
-
   const drawer = (
-    <div sx={{ drawerDiv }}>
+    <div sx={drawerDiv}>
       <Link to="/" onClick={handleDrawerToggle}>
-        <Typography variant="h6" noWrap sx={{ typography }}>
-          <img src={logo} alt="Logo" style={{ img }} />
+        <Typography variant="h6" noWrap sx={typography}>
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: "auto", height: "70px" }}
+          />
         </Typography>
       </Link>
-      <Divider />
+      <Divider sx={{ my: 2 }} />
       <List>
         {pages.map((page) => (
           <ListItem key={page.label} disablePadding>
@@ -91,7 +75,11 @@ function Navbar() {
           </ListItem>
         ))}
       </List>
-      <Box sx={{ box }}>
+      <Box
+        sx={{
+          box,
+        }}
+      >
         <Box sx={{ marginTop: "auto" }}>
           <Button onClick={handleLogout} fullWidth>
             Logout
@@ -105,14 +93,12 @@ function Navbar() {
       </Box>
     </div>
   );
-
   return (
     <>
       {/* Mobile Drawer */}
       <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
         {drawer}
       </Drawer>
-
       {/* App Bar */}
       <AppBar position="static">
         <Container maxWidth="xl">
@@ -123,7 +109,7 @@ function Navbar() {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{ iconButton }}
+                sx={iconButton}
               >
                 <MenuIcon />
               </IconButton>
@@ -135,15 +121,19 @@ function Navbar() {
                 noWrap
                 component={Link}
                 to="/"
-                sx={{ navbarTypography }}
+                sx={navbarTypography}
               >
-                <img src={logo} alt="Logo" style={{ img }} />
+                <img
+                  src={logo}
+                  alt="Logo"
+                  style={{ width: "auto", height: "70px" }}
+                />
               </Typography>
             )}
 
             {/* Conditionally render navigation items based on isDrawer */}
             {isDrawer ? null : (
-              <Box sx={{ navbarBox }}>
+              <Box sx={navbarBox}>
                 {pages.map((page) => (
                   <Button
                     key={page.label}
@@ -181,4 +171,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Design;
