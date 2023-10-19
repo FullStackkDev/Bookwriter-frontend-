@@ -6,10 +6,12 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
 import { styles } from "./style";
-import { facebookAppId, googleClientId } from "../../utils/constant";
+import {
+  facebookAppId,
+  googleClientId,
+  googleScope,
+} from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
 import { Link } from "react-router-dom";
@@ -20,8 +22,11 @@ import {
   handleFaceBook,
 } from "../../helper/function";
 import BookLogo from "../../components/BookLogo";
-import { LoginSocialFacebook } from "reactjs-social-login";
-import { FacebookLoginButton } from "react-social-login-buttons";
+import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from "react-social-login-buttons";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
@@ -40,18 +45,18 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
         </Typography>
         <Grid container justifyContent="center">
           <Grid item>
-            <GoogleOAuthProvider clientId={googleClientId}>
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  var decoded = jwt_decode(credentialResponse.credential);
-                  handleGoogle(decoded, dispatch);
-                }}
-                onError={() => {
-                  showToast("Unable to register, please try again!", "error");
-                }}
-                width={250}
-              />
-            </GoogleOAuthProvider>
+            <LoginSocialGoogle
+              client_id={googleClientId}
+              scope={googleScope}
+              onResolve={(data) => {
+                handleGoogle(data.data, dispatch);
+              }}
+              onReject={() => {
+                showToast("Unable to register, please try again!", "error");
+              }}
+            >
+              <GoogleLoginButton />
+            </LoginSocialGoogle>
             <LoginSocialFacebook
               appId={facebookAppId}
               onResolve={(response) => {
