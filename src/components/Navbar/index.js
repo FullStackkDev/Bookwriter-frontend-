@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../Redux/store/userSlice";
 import Design from "./design";
+import { useLocation } from "react-router";
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
   const user = useSelector((state) => state.user.user);
 
   const handleDrawerToggle = () => {
@@ -19,6 +21,10 @@ function Navbar() {
 
   const handleLogout = () => {
     dispatch(userActions.logoutUser());
+  };
+
+  const isSelected = (pagePath) => {
+    return location.pathname === pagePath;
   };
 
   useEffect(() => {
@@ -36,6 +42,7 @@ function Navbar() {
       handleDrawerToggle={handleDrawerToggle}
       user={user}
       handleLogout={handleLogout}
+      isSelected={isSelected}
     />
   );
 }

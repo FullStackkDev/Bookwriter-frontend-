@@ -30,21 +30,16 @@ function Design({
   handleDrawerToggle,
   user,
   handleLogout,
+  isSelected,
 }) {
   const {
     drawerDiv,
     typography,
-    img,
     box,
     iconButton,
     navbarTypography,
     navbarBox,
   } = styles;
-  const location = useLocation();
-
-  const isSelected = (pagePath) => {
-    return location.pathname === pagePath;
-  };
 
   const drawer = (
     <div sx={drawerDiv}>
