@@ -11,6 +11,8 @@ import {
   facebookAppId,
   googleClientId,
   googleScope,
+  linkedInClientId,
+  linkedInClientSecretId,
 } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
@@ -22,10 +24,15 @@ import {
   handleFaceBook,
 } from "../../helper/function";
 import BookLogo from "../../components/BookLogo";
-import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
+import {
+  LoginSocialFacebook,
+  LoginSocialGoogle,
+  LoginSocialLinkedin,
+} from "reactjs-social-login";
 import {
   FacebookLoginButton,
   GoogleLoginButton,
+  LinkedInLoginButton,
 } from "react-social-login-buttons";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
@@ -68,6 +75,19 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             >
               <FacebookLoginButton />
             </LoginSocialFacebook>
+            <LoginSocialLinkedin
+              client_id={linkedInClientId}
+              client_secret={linkedInClientSecretId}
+              redirect_uri={"https://08c9-182-188-100-101.ngrok-free.app"}
+              onResolve={(data) => {
+                console.log(data);
+              }}
+              onReject={(err) => {
+                console.log(err);
+              }}
+            >
+              <LinkedInLoginButton />
+            </LoginSocialLinkedin>
           </Grid>
         </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>

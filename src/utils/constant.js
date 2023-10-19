@@ -34,3 +34,8 @@ export const googleClientId = process.env.REACT_APP_GOOGLECLIENTID;
 export const facebookAppId = process.env.REACT_APP_FACEBOOKAPPID;
 
 export const googleScope = "openid profile email";
+
+export const linkedInClientId = process.env.REACT_APP_LINKEDINCLIENTID;
+
+export const linkedInClientSecretId =
+  process.env.REACT_APP_LINKEDINCLIENTSECRETID;
