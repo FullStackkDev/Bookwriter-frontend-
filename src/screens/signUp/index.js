@@ -6,6 +6,7 @@ import Design from "./design";
 import { showToast } from "../../helper/tosat";
 import { validateForm } from "../../utils/utils";
 import { validationRules } from "./validator/rules";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -17,6 +18,7 @@ function SignUp() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,7 +46,9 @@ function SignUp() {
               email: "",
               password: "",
               phoneNo: "",
+              confirmPassword: "",
             });
+            navigate("/signin");
           } else {
             setErrors(response.data.message.error);
           }

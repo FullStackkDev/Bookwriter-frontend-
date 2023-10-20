@@ -7,3 +7,4 @@ export const VALID_NAME =
 export const PASSWORD_LENGTH = "must be at least 8 characters long.";
 export const PHONE_FORMAT =
   "Invalid phone number format. Please use the format: +xx-xxxxxxxxxx";
+export const UNABLE_TO_CONTINUE = "Something went wrong, please try again!";

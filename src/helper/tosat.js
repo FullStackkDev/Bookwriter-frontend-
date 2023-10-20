@@ -2,11 +2,11 @@ import { toast } from "react-toastify";
 
 export const showToast = (message, type = "success") => {
   toast[type](message, {
-    position: "bottom-left",
+    position: "top-center",
     autoClose: 2500,
-    hideProgressBar: true,
-    closeOnClick: false,
-    pauseOnHover: false,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
     draggable: false,
     progress: undefined,
     theme: "light",

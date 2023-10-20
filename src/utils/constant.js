@@ -29,4 +29,22 @@ export const validationRules = [
 
 export const baseURL = process.env.REACT_APP_BASEURL;
 
-export const googleClientId = process.env.REACT_APP_GOOGLECLIENTID
+export const googleClientId = process.env.REACT_APP_GOOGLECLIENTID;
+
+export const facebookAppId = process.env.REACT_APP_FACEBOOKAPPID;
+
+export const googleScope = "openid profile email";
+
+export const linkedInClientId = process.env.REACT_APP_LINKEDINCLIENTID;
+
+export const linkedInClientSecretId =
+  process.env.REACT_APP_LINKEDINCLIENTSECRETID;
+
+export const linkedInScope = "w_member_social profile openid email";
+
+export const redirectUri = "http://localhost:3000/signup";
+
+export const gitHubClientId = process.env.REACT_APP_GITHUBCLIENTID;
+
+export const gitHubClientSecretId =
+  process.env.REACT_APP_GITHUBCLIENTSECRETID;

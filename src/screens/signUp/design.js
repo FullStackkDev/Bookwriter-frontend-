@@ -6,45 +6,121 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
 import { styles } from "./style";
-import { googleClientId } from "../../utils/constant";
+import { useTheme } from "@mui/material/styles";
+import {
+  facebookAppId,
+  gitHubClientId,
+  gitHubClientSecretId,
+  googleClientId,
+  googleScope,
+  linkedInClientId,
+  linkedInClientSecretId,
+  linkedInScope,
+  redirectUri,
+} from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { handleChange, handleGoogle } from "../../helper/function";
+import { handleChange, handle3rdPartyIntegration } from "../../helper/function";
 import BookLogo from "../../components/BookLogo";
+import {
+  LoginSocialFacebook,
+  LoginSocialGithub,
+  LoginSocialGoogle,
+  LoginSocialLinkedin,
+} from "reactjs-social-login";
+import {
+  FacebookLoginButton,
+  GithubLoginButton,
+  GoogleLoginButton,
+  LinkedInLoginButton,
+} from "react-social-login-buttons";
+import jwt_decode from "jwt-decode";
+import { UNABLE_TO_CONTINUE } from "../../utils/messages";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   return (
     <Container component="main" maxWidth="sm">
       <Box sx={boxContainer}>
         <BookLogo />
-        <Typography component="h1" variant="h5" sx={title}>
+        <Typography component="h1" variant="h5" sx={title(theme)}>
           Book Writer
         </Typography>
 
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Grid container justifyContent="center">
+        <Grid>
           <Grid item>
-            <GoogleOAuthProvider clientId={googleClientId}>
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  var decoded = jwt_decode(credentialResponse.credential);
-                  handleGoogle(decoded, dispatch);
-                }}
-                onError={() => {
-                  showToast("Unable to register, please try again!", "error");
-                }}
-              />
-            </GoogleOAuthProvider>
+            <LoginSocialGoogle
+              client_id={googleClientId}
+              scope={googleScope}
+              onResolve={(response) => {
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <GoogleLoginButton />
+            </LoginSocialGoogle>
+            <LoginSocialFacebook
+              appId={facebookAppId}
+              onResolve={(response) => {
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <FacebookLoginButton />
+            </LoginSocialFacebook>
+            <LoginSocialLinkedin
+              client_id={linkedInClientId}
+              client_secret={linkedInClientSecretId}
+              redirect_uri={redirectUri}
+              scope={linkedInScope}
+              onResolve={(response) => {
+                const decoded = jwt_decode(response.data.id_token);
+                handle3rdPartyIntegration(decoded, dispatch, response.provider);
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <LinkedInLoginButton />
+            </LoginSocialLinkedin>
+            <LoginSocialGithub
+              client_id={gitHubClientId}
+              client_secret={gitHubClientSecretId}
+              redirect_uri={redirectUri}
+              onResolve={(response) => {
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <GithubLoginButton />
+            </LoginSocialGithub>
           </Grid>
         </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>
@@ -62,6 +138,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.firstName ? true : false}
             helperText={errors.firstName}
             value={userData.firstName}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -76,6 +153,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.lastName ? true : false}
             helperText={errors.lastName}
             value={userData.lastName}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -90,6 +168,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.email ? true : false}
             helperText={errors.email}
             value={userData.email}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -104,6 +183,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.phoneNo ? true : false}
             helperText={errors.phoneNo}
             value={userData.phoneNo}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -119,6 +199,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.password ? true : false}
             helperText={errors.password}
             value={userData.password}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -134,6 +215,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.confirmPassword ? true : false}
             helperText={errors.confirmPassword}
             value={userData.confirmPassword}
+            InputLabelProps={{ shrink: true }}
           />
           <Button type="submit" fullWidth variant="contained" sx={button}>
             Sign Up
@@ -141,7 +223,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
           <Grid container justifyContent="center">
             <Grid item>
               <Link to={"/signin"} variant="body2">
-                {"Already have an account?"}
+                Already have an account?
               </Link>
             </Grid>
           </Grid>
