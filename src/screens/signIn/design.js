@@ -16,6 +16,8 @@ import {
   linkedInClientSecretId,
   redirectUri,
   linkedInScope,
+  gitHubClientId,
+  gitHubClientSecretId,
 } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
@@ -24,11 +26,13 @@ import { useDispatch } from "react-redux";
 import BookLogo from "../../components/BookLogo";
 import {
   LoginSocialFacebook,
+  LoginSocialGithub,
   LoginSocialGoogle,
   LoginSocialLinkedin,
 } from "reactjs-social-login";
 import {
   FacebookLoginButton,
+  GithubLoginButton,
   GoogleLoginButton,
   LinkedInLoginButton,
 } from "react-social-login-buttons";
@@ -98,6 +102,23 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             >
               <LinkedInLoginButton />
             </LoginSocialLinkedin>
+            <LoginSocialGithub
+              client_id={gitHubClientId}
+              client_secret={gitHubClientSecretId}
+              redirect_uri={redirectUri}
+              onResolve={(response) => {
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <GithubLoginButton />
+            </LoginSocialGithub>
           </Grid>
         </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>
