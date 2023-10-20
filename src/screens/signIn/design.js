@@ -85,6 +85,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.email ? true : false}
             helperText={errors.email}
             value={userData.email}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -100,6 +101,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.password ? true : false}
             helperText={errors.password}
             value={userData.password}
+            InputLabelProps={{ shrink: true }}
           />
           <Button type="submit" fullWidth variant="contained" sx={button}>
             Sign In
