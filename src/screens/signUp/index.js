@@ -46,6 +46,7 @@ function SignUp() {
               email: "",
               password: "",
               phoneNo: "",
+              confirmPassword: "",
             });
             navigate("/signin");
           } else {
