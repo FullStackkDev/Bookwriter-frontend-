@@ -9,6 +9,8 @@ import Grid from "@mui/material/Grid";
 import { styles } from "./style";
 import {
   facebookAppId,
+  gitHubClientId,
+  gitHubClientSecretId,
   googleClientId,
   googleScope,
   linkedInClientId,
@@ -101,8 +103,8 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
               <LinkedInLoginButton />
             </LoginSocialLinkedin>
             <LoginSocialGithub
-              client_id={"Iv1.5cb8f88d73868cb4"}
-              client_secret={"71afbad9b08dbcc5c4e19668382dc710e8c20fab"}
+              client_id={gitHubClientId}
+              client_secret={gitHubClientSecretId}
               redirect_uri={redirectUri}
               onResolve={(response) => {
                 handle3rdPartyIntegration(

@@ -43,3 +43,8 @@ export const linkedInClientSecretId =
 export const linkedInScope = "w_member_social profile openid email";
 
 export const redirectUri = "http://localhost:3000/signup";
+
+export const gitHubClientId = process.env.REACT_APP_GITHUBCLIENTID;
+
+export const gitHubClientSecretId =
+  process.env.REACT_APP_GITHUBCLIENTSECRETID;
