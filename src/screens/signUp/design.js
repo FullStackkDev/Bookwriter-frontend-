@@ -24,11 +24,13 @@ import { handleChange, handle3rdPartyIntegration } from "../../helper/function";
 import BookLogo from "../../components/BookLogo";
 import {
   LoginSocialFacebook,
+  LoginSocialGithub,
   LoginSocialGoogle,
   LoginSocialLinkedin,
 } from "reactjs-social-login";
 import {
   FacebookLoginButton,
+  GithubLoginButton,
   GoogleLoginButton,
   LinkedInLoginButton,
 } from "react-social-login-buttons";
@@ -98,6 +100,23 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             >
               <LinkedInLoginButton />
             </LoginSocialLinkedin>
+            <LoginSocialGithub
+              client_id={"Iv1.5cb8f88d73868cb4"}
+              client_secret={"71afbad9b08dbcc5c4e19668382dc710e8c20fab"}
+              redirect_uri={redirectUri}
+              onResolve={(response) => {
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <GithubLoginButton />
+            </LoginSocialGithub>
           </Grid>
         </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>
