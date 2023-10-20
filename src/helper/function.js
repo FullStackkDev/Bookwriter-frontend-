@@ -1,6 +1,7 @@
 // handle Input Change.
 
 import { loginWith3rdParty } from "../api/thirdPartyLogin";
+import { UNABLE_TO_CONTINUE } from "../utils/messages";
 import { showToast } from "./tosat";
 
 export const handleChange = (event, stateData, setStateData) => {
@@ -11,48 +12,34 @@ export const handleChange = (event, stateData, setStateData) => {
   });
 };
 
-export const handleGoogle = (decoded, dispatch) => {
-  const { given_name, family_name, email, sub } = decoded;
-  const payload = {
-    first_name: given_name,
-    last_name: family_name ? family_name : given_name,
-    email: email,
-    third_party_user_id: +sub,
-    third_party_type: "Google",
-  };
+export const handle3rdPartyIntegration = (response, dispatch, provider) => {
+  let payload = {};
+  if (provider === "facebook") {
+    const { first_name, last_name, email, userID } = response;
+    payload = {
+      first_name: first_name,
+      last_name: last_name ? last_name : first_name,
+      email: email,
+      third_party_user_id: userID,
+      third_party_type: provider,
+    };
+  } else {
+    const { given_name, family_name, email, sub } = response;
+    payload = {
+      first_name: given_name,
+      last_name: family_name ? family_name : given_name,
+      email: email,
+      third_party_user_id: sub,
+      third_party_type: provider,
+    };
+  }
   dispatch(loginWith3rdParty(payload))
     .then((response) => {
       if (!response.data.success) {
-        showToast(
-          response.data.message.error.email,
-          response.data.success ? "success" : "error"
-        );
+        showToast(response.data.message, "error");
       }
     })
     .catch((error) => {
-      showToast("Unable to register, please try again!", "error");
-    });
-};
-
-export const handleFaceBook = (decoded, dispatch) => {
-  const { first_name, last_name, email, userID } = decoded;
-  const payload = {
-    first_name: first_name,
-    last_name: last_name ? last_name : " ",
-    email: email,
-    third_party_user_id: +userID,
-    third_party_type: "FaceBook",
-  };
-  dispatch(loginWith3rdParty(payload))
-    .then((response) => {
-      if (!response.data.success) {
-        showToast(
-          response.data.message.error.email,
-          response.data.success ? "success" : "error"
-        );
-      }
-    })
-    .catch((error) => {
-      showToast("Unable to register, please try again!", "error");
+      showToast(UNABLE_TO_CONTINUE, "error");
     });
 };

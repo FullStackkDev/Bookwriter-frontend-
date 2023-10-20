@@ -39,3 +39,7 @@ export const linkedInClientId = process.env.REACT_APP_LINKEDINCLIENTID;
 
 export const linkedInClientSecretId =
   process.env.REACT_APP_LINKEDINCLIENTSECRETID;
+
+export const linkedInScope = "w_member_social profile openid email";
+
+export const redirectUri = "http://localhost:3000/signup";

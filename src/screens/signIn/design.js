@@ -7,26 +7,33 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { styles } from "./style";
-import {
-  handleChange,
-  handleGoogle,
-  handleFaceBook,
-} from "../../helper/function";
+import { handleChange, handle3rdPartyIntegration } from "../../helper/function";
 import {
   googleClientId,
   facebookAppId,
   googleScope,
+  linkedInClientId,
+  linkedInClientSecretId,
+  redirectUri,
+  linkedInScope,
 } from "../../utils/constant";
 import { ToastContainer } from "react-toastify";
 import { showToast } from "../../helper/tosat";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import BookLogo from "../../components/BookLogo";
-import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
+import {
+  LoginSocialFacebook,
+  LoginSocialGoogle,
+  LoginSocialLinkedin,
+} from "reactjs-social-login";
 import {
   FacebookLoginButton,
   GoogleLoginButton,
+  LinkedInLoginButton,
 } from "react-social-login-buttons";
+import jwt_decode from "jwt-decode";
+import { UNABLE_TO_CONTINUE } from "../../utils/messages";
 
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
@@ -48,11 +55,15 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             <LoginSocialGoogle
               client_id={googleClientId}
               scope={googleScope}
-              onResolve={(data) => {
-                handleGoogle(data.data, dispatch);
+              onResolve={(response) => {
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
               }}
               onReject={() => {
-                showToast("Unable to register, please try again!", "error");
+                showToast(UNABLE_TO_CONTINUE, "error");
               }}
             >
               <GoogleLoginButton />
@@ -60,14 +71,33 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             <LoginSocialFacebook
               appId={facebookAppId}
               onResolve={(response) => {
-                handleFaceBook(response.data, dispatch);
+                handle3rdPartyIntegration(
+                  response.data,
+                  dispatch,
+                  response.provider
+                );
               }}
               onReject={() => {
-                showToast("Unable to register, please try again!", "error");
+                showToast(UNABLE_TO_CONTINUE, "error");
               }}
             >
               <FacebookLoginButton />
             </LoginSocialFacebook>
+            <LoginSocialLinkedin
+              client_id={linkedInClientId}
+              client_secret={linkedInClientSecretId}
+              redirect_uri={redirectUri}
+              scope={linkedInScope}
+              onResolve={(response) => {
+                var decoded = jwt_decode(response.data.id_token);
+                handle3rdPartyIntegration(decoded, dispatch, response.provider);
+              }}
+              onReject={() => {
+                showToast(UNABLE_TO_CONTINUE, "error");
+              }}
+            >
+              <LinkedInLoginButton />
+            </LoginSocialLinkedin>
           </Grid>
         </Grid>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={form}>
