@@ -6,7 +6,6 @@ import SignIn from "../src/screens/signIn";
 import SignUp from "../src/screens/signUp";
 import Books from "./pages/Books";
 import Settings from "./pages/Settings";
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux"; // Import the functions
 import { getLocalStorage } from "./helper/localStorage";
 import { userActions } from "./Redux/store/userSlice";
@@ -30,7 +29,7 @@ function App() {
       );
   }, []);
   return (
-    <div className="App">
+    <div>
       {authenticated && <Navbar />}
       <Routes>
         {authenticated ? (

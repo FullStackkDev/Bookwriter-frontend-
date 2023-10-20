@@ -1,4 +1,5 @@
 // SignUp/styles.js
+
 export const styles = {
   boxContainer: {
     boxShadow: 3,
@@ -10,13 +11,13 @@ export const styles = {
     flexDirection: "column",
     alignItems: "center",
   },
-  title: {
+  title: (theme) => ({
     fontSize: "2rem",
     fontWeight: "bold",
-    color: (theme) => theme.palette.grey.main,
+    color: theme.palette.grey["900"],
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
     marginBottom: "20px",
-  },
+  }),
   form: {
     mt: 1,
   },

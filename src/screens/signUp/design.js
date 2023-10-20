@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { styles } from "./style";
+import { useTheme } from "@mui/material/styles";
 import {
   facebookAppId,
   gitHubClientId,
@@ -42,19 +43,20 @@ import { UNABLE_TO_CONTINUE } from "../../utils/messages";
 function Design({ userData, setUserData, errors, handleSubmit }) {
   const { boxContainer, title, form, button } = styles;
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   return (
     <Container component="main" maxWidth="sm">
       <Box sx={boxContainer}>
         <BookLogo />
-        <Typography component="h1" variant="h5" sx={title}>
+        <Typography component="h1" variant="h5" sx={title(theme)}>
           Book Writer
         </Typography>
 
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Grid container justifyContent="center">
+        <Grid>
           <Grid item>
             <LoginSocialGoogle
               client_id={googleClientId}
@@ -93,7 +95,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
               redirect_uri={redirectUri}
               scope={linkedInScope}
               onResolve={(response) => {
-                var decoded = jwt_decode(response.data.id_token);
+                const decoded = jwt_decode(response.data.id_token);
                 handle3rdPartyIntegration(decoded, dispatch, response.provider);
               }}
               onReject={() => {
@@ -221,7 +223,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
           <Grid container justifyContent="center">
             <Grid item>
               <Link to={"/signin"} variant="body2">
-                {"Already have an account?"}
+                Already have an account?
               </Link>
             </Grid>
           </Grid>

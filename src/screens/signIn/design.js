@@ -160,7 +160,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
           <Grid container justifyContent="center">
             <Grid item>
               <Link to={"/signup"} variant="body2">
-                {"Don't have an account?"}
+                Don't have an account?
               </Link>
             </Grid>
           </Grid>
