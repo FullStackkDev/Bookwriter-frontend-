@@ -36,7 +36,13 @@ export const handle3rdPartyIntegration = (response, dispatch, provider) => {
   dispatch(loginWith3rdParty(payload))
     .then((response) => {
       if (!response.data.success) {
-        showToast(response.data.message, "error");
+        if (response.data.message.error) {
+          const errors = response.data.message.error;
+          const errorMessages = Object.values(errors).join(", ");
+          showToast(errorMessages, "error");
+        } else {
+          showToast(response.data.message, "error");
+        }
       }
     })
     .catch((error) => {
