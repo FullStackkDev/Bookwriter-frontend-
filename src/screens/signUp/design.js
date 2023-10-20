@@ -105,6 +105,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.firstName ? true : false}
             helperText={errors.firstName}
             value={userData.firstName}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -119,6 +120,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.lastName ? true : false}
             helperText={errors.lastName}
             value={userData.lastName}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -133,6 +135,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.email ? true : false}
             helperText={errors.email}
             value={userData.email}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -147,6 +150,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.phoneNo ? true : false}
             helperText={errors.phoneNo}
             value={userData.phoneNo}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -162,6 +166,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.password ? true : false}
             helperText={errors.password}
             value={userData.password}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             margin="normal"
@@ -177,6 +182,7 @@ function Design({ userData, setUserData, errors, handleSubmit }) {
             error={errors.confirmPassword ? true : false}
             helperText={errors.confirmPassword}
             value={userData.confirmPassword}
+            InputLabelProps={{ shrink: true }}
           />
           <Button type="submit" fullWidth variant="contained" sx={button}>
             Sign Up
