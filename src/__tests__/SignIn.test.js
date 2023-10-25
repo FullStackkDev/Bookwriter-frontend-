@@ -1,17 +1,30 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { validateForm } from "../utils/utils";
-import { PASSWORD_LENGTH, REQUIRED } from "../utils/messages";
+import { INVALID, PASSWORD_LENGTH, REQUIRED } from "../utils/messages";
 import { validationRules } from "../screens/signIn/validator/rules";
 import SignIn from "../screens/signIn/design";
 import { BrowserRouter } from "react-router-dom";
 import store from "../Redux/store";
 import { Provider } from "react-redux";
 
-test("Render", () => {
+const handleSubmit = jest.fn();
+const setUserData = jest.fn();
+const userData = {
+  email: "",
+  password: "",
+};
+const errors = {};
+
+test("render", async () => {
   render(
     <Provider store={store}>
       <BrowserRouter>
-        <SignIn />
+        <SignIn
+          userData={userData}
+          errors={errors}
+          setUserData={setUserData}
+          handleSubmit={handleSubmit}
+        />
       </BrowserRouter>
     </Provider>
   );
@@ -24,10 +37,23 @@ test("Render", () => {
   const inputPassword = screen.getByTestId("password");
   expect(inputPassword).toBeInTheDocument();
 
-  expect(screen.getByTestId("button")).toHaveTextContent(/Sign In/);
+  expect(screen.getByTestId("signIn-button")).toHaveTextContent(/Sign In/);
+
+  const field = screen.getByTestId("email");
+  // fill out the form
+  fireEvent.change(field, {
+    target: { value: "talha786.156@gmail.com" },
+  });
+
+  fireEvent.change(screen.getByTestId("password"), {
+    target: { value: "12345678" },
+  });
+
+  const loginAwait = screen.getByTestId("signIn-button");
+  //await fireEvent.click(loginAwait);
 });
 
-test("Empty inputs test", () => {
+test("empty input email and password test", () => {
   expect(
     validateForm({ email: "", password: "" }, validationRules)
   ).toStrictEqual({
@@ -36,25 +62,25 @@ test("Empty inputs test", () => {
   });
 });
 
-test("Invalid inputs tests 1", () => {
+test("invalid email and empty password test", () => {
   expect(
     validateForm({ email: "talha786", password: "" }, validationRules)
   ).toStrictEqual({
-    email: "Invalid E-mail address.",
+    email: "E-mail " + INVALID,
     password: "Password " + REQUIRED,
   });
 });
 
-test("Invalid inputs tests 2", () => {
+test("invalid input email and password test", () => {
   expect(
     validateForm({ email: "talha786", password: "123456" }, validationRules)
   ).toStrictEqual({
-    email: "Invalid E-mail address.",
+    email: "E-mail" + INVALID,
     password: "Password " + PASSWORD_LENGTH,
   });
 });
 
-test("Correct SignIn inputs", () => {
+test("valid input email and password test", () => {
   expect(
     validateForm(
       { email: "talha786.156@gmail.com", password: "12345678" },
