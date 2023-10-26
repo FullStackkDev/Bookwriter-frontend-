@@ -1,7 +1,6 @@
 import axios from "../../../api";
 import { getUser } from "../../../components/Navbar/api";
 import { authActions } from "../../../Redux/store/authSlice";
-import { userActions } from "../../../Redux/store/userSlice";
 
 export const login = (payload) => async (dispatch) => {
   try {
