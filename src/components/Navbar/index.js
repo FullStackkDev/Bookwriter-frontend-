@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../../Redux/store/userSlice";
 import Design from "./design";
 import { useLocation } from "react-router";
+import { authActions } from "../../Redux/store/authSlice";
+import { getUser } from "./api";
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isDrawer, setIsDrawer] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
+  const token = useSelector((state) => state.auth.token.token);
   const user = useSelector((state) => state.user.user);
 
   const handleDrawerToggle = () => {
@@ -20,7 +22,7 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    dispatch(userActions.logoutUser());
+    dispatch(authActions.Logout());
   };
 
   const isSelected = (pagePath) => {
@@ -34,6 +36,12 @@ function Navbar() {
       window.removeEventListener("resize", updateIsDrawer);
     };
   }, []);
+
+  useEffect(() => {
+    if (!Object.keys(user).length) {
+      dispatch(getUser(token));
+    }
+  });
 
   return (
     <Design
