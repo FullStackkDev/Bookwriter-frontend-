@@ -6,49 +6,73 @@ import SignIn from "../src/screens/signIn";
 import SignUp from "../src/screens/signUp";
 import Books from "./pages/Books";
 import Settings from "./pages/Settings";
-import { useDispatch, useSelector } from "react-redux"; // Import the functions
-import { getLocalStorage } from "./helper/localStorage";
-import { userActions } from "./Redux/store/userSlice";
+import { useSelector } from "react-redux"; // Import the functions
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
 function App() {
-  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.token);
 
-  const [authenticated, setAuthenticated] = useState(getLocalStorage("user"));
-  const user = useSelector((state) => state.user.user);
-
-  useEffect(() => {
-    setAuthenticated(getLocalStorage("user"));
-  }, [user]);
-
-  useEffect(() => {
-    getLocalStorage("user") &&
-      !Object.keys(user).lenght &&
-      dispatch(
-        userActions.addUserAfterReload(JSON.parse(getLocalStorage("user")))
-      );
-  }, []);
   return (
     <div>
-      {authenticated && <Navbar />}
+      {isAuthenticated && <Navbar />}
       <Routes>
-        {authenticated ? (
-          <>
-            <Route path="/signin" element={<Navigate to="/" />} />
-            <Route path="/signup" element={<Navigate to="/" />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/books" element={<Books />} />
-            <Route path="/settings" element={<Settings />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<Navigate to="/signin" />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/books" element={<Navigate to="/signin" />} />
-            <Route path="/home" element={<Navigate to="/signin" />} />
-          </>
-        )}
+        <>
+          <Route
+            path="/signin"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                path="/signin"
+                element={<SignIn />}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                path="/signup"
+                element={<SignUp />}
+              />
+            }
+          />
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                path="/"
+                element={<Home />}
+                redirectPath="/signin"
+              />
+            }
+          />
+          <Route
+            path="/books"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                path="/books"
+                element={<Books />}
+                redirectPath="/signin"
+              />
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                path="/settings"
+                element={<Settings />}
+                redirectPath="/signin"
+              />
+            }
+          />
+        </>
       </Routes>
     </div>
   );
