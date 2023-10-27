@@ -34,8 +34,21 @@ function Design({
   handleSearch,
   truncateText,
 }) {
-  const { containerStyles, backgroundImageStyles, badgeStyles, gridStyles } =
-    styles;
+  const {
+    containerStyles,
+    typographyMain,
+    typographyTagLine,
+    typographyQuotes,
+    typographyWriterName,
+    backgroundImageStyles,
+    badgeStyles,
+    gridStyles,
+    bookCard,
+    avatar,
+    cardHeader,
+    cardContent,
+    pagination,
+  } = styles;
   return (
     <>
       <Box sx={containerStyles}>
@@ -45,34 +58,16 @@ function Design({
             variant="h1"
             color="primary"
             align="center"
-            style={{
-              fontWeight: "bold",
-              fontSize: "3rem",
-              letterSpacing: "2px",
-              marginBottom: "1rem",
-            }}
+            style={typographyMain}
           >
             Book Writer
           </Typography>
           <Typography variant="h5" color="textSecondary" align="center">
-            <span
-              style={{
-                fontStyle: "italic",
-                fontSize: "1.2rem",
-                display: "block",
-                margin: "1rem 0",
-              }}
-            >
-              Write to Live
-            </span>
-            <span style={{ fontSize: "1.1rem" }}>
+            <span style={typographyTagLine}>Write to Live</span>
+            <span style={typographyQuotes}>
               There is no greater agony than bearing an untold story inside you.
             </span>
-            <span
-              style={{ fontSize: "1rem", display: "block", marginTop: "1rem" }}
-            >
-              - Maya Angelou
-            </span>
+            <span style={typographyWriterName}>- Maya Angelou</span>
           </Typography>
         </Container>
       </Box>
@@ -118,14 +113,14 @@ function Design({
       >
         {currentCards.map((book, index) => (
           <Grid item key={index}>
-            <Card sx={{ maxWidth: 300, margin: "1rem" }}>
+            <Card sx={bookCard}>
               <CardHeader
                 avatar={
-                  <Avatar sx={{ bgcolor: "red" }} aria-label="book">
+                  <Avatar sx={avatar} aria-label="book">
                     {book.title.charAt(0)}
                   </Avatar>
                 }
-                sx={{ height: "50px" }}
+                sx={cardHeader}
                 title={truncateText(book.title, 5)}
                 subheader={book.publishedDate}
               />
@@ -135,7 +130,7 @@ function Design({
                 image={bgImage}
                 alt={book.title}
               />
-              <CardContent sx={{ height: "80px", margin: "1rem" }}>
+              <CardContent sx={cardContent}>
                 <Typography variant="body2" color="text.secondary">
                   {truncateText(book.description, 25)}
                 </Typography>
@@ -158,7 +153,7 @@ function Design({
         page={currentPage}
         onChange={handlePageChange}
         color="primary"
-        style={{ display: "flex", justifyContent: "center", margin: "2rem 0" }}
+        style={pagination}
       />
 
       <Footer />

@@ -10,6 +10,26 @@ export const styles = {
     justifyContent: "center",
     flexDirection: "column",
   },
+  typographyMain: {
+    fontWeight: "bold",
+    fontSize: "3rem",
+    letterSpacing: "2px",
+    marginBottom: "1rem",
+  },
+  typographyTagLine: {
+    fontStyle: "italic",
+    fontSize: "1.2rem",
+    display: "block",
+    margin: "1rem 0",
+  },
+  typographyQuotes: {
+    fontSize: "1.1rem",
+  },
+  typographyWriterName: {
+    fontSize: "1rem",
+    display: "block",
+    marginTop: "1rem",
+  },
   backgroundImageStyles: {
     backgroundImage: `url(${bgImage})`,
     backgroundSize: "cover",
@@ -33,5 +53,24 @@ export const styles = {
     my: 6,
     mx: "auto",
     px: 0.75,
+  },
+  bookCard: {
+    maxWidth: 300,
+    margin: "1rem",
+  },
+  avatar: {
+    bgcolor: "red",
+  },
+  cardHeader: {
+    height: "50px",
+  },
+  cardContent: {
+    height: "80px",
+    margin: "1rem",
+  },
+  pagination: {
+    display: "flex",
+    justifyContent: "center",
+    margin: "2rem 0",
   },
 };

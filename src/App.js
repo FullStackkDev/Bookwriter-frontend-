@@ -1,7 +1,7 @@
 /* eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./screens/home";
 import SignIn from "../src/screens/signIn";
 import SignUp from "../src/screens/signUp";
 import Books from "./pages/Books";
