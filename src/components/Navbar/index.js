@@ -10,7 +10,7 @@ function Navbar() {
   const [isDrawer, setIsDrawer] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  const token = useSelector((state) => state.auth.token.token);
+  const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.user.user);
 
   const handleDrawerToggle = () => {
