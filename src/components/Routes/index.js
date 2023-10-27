@@ -12,6 +12,7 @@ const AppRoutes = ({ isAuthenticated }) => {
     <Routes>
       <>
         <Route
+          exact
           path="/signin"
           element={
             <ProtectedRoute
@@ -22,6 +23,7 @@ const AppRoutes = ({ isAuthenticated }) => {
           }
         />
         <Route
+          exact
           path="/signup"
           element={
             <ProtectedRoute
@@ -33,6 +35,7 @@ const AppRoutes = ({ isAuthenticated }) => {
         />
 
         <Route
+          exact
           path="/"
           element={
             <ProtectedRoute
@@ -44,6 +47,7 @@ const AppRoutes = ({ isAuthenticated }) => {
           }
         />
         <Route
+          exact
           path="/books"
           element={
             <ProtectedRoute
@@ -55,6 +59,7 @@ const AppRoutes = ({ isAuthenticated }) => {
           }
         />
         <Route
+          exact
           path="/settings"
           element={
             <ProtectedRoute
