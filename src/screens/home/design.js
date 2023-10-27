@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Container from "@mui/material/Container";
 import {
   Avatar,
@@ -22,43 +22,20 @@ import ShareIcon from "@mui/icons-material/Share";
 import SearchIcon from "@mui/icons-material/Search";
 
 import Footer from "../../components/Footer";
-import {
-  containerStyles,
-  backgroundImageStyles,
-  badgeStyles,
-  gridStyles,
-} from "./style";
-import { dummyBooks } from "./api/index";
+import { styles } from "./style";
 
-function Design() {
-  const cardsPerPage = 6;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [bookData, setBookData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    setBookData(dummyBooks);
-  }, []);
-
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-
-  // Filter books based on the search query
-  const filteredBooks = bookData.filter((book) =>
-    book.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const currentCards = filteredBooks.slice(indexOfFirstCard, indexOfLastCard);
-
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-  };
-
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-    setCurrentPage(1); // Reset to the first page when searching
-  };
-
+function Design({
+  currentPage,
+  searchQuery,
+  currentCards,
+  filteredBooks,
+  cardsPerPage,
+  handlePageChange,
+  handleSearch,
+  truncateText,
+}) {
+  const { containerStyles, backgroundImageStyles, badgeStyles, gridStyles } =
+    styles;
   return (
     <>
       <Box sx={containerStyles}>
@@ -89,8 +66,7 @@ function Design() {
               Write to Live
             </span>
             <span style={{ fontSize: "1.1rem" }}>
-              "There is no greater agony than bearing an untold story inside
-              you."
+              There is no greater agony than bearing an untold story inside you.
             </span>
             <span
               style={{ fontSize: "1rem", display: "block", marginTop: "1rem" }}
@@ -118,50 +94,6 @@ function Design() {
           - Stephen King
         </Typography>
       </Grid>
-
-      {/* <Grid
-        container
-        spacing={4}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-        justifyContent="center"
-      >
-        {Array.from({ length: 10 }).map((index) => (
-          <Grid item key={index}>
-            <Card sx={{ maxWidth: 300, margin: "1rem" }}>
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-                    AA
-                  </Avatar>
-                }
-                title="One piece"
-                subheader="September 14, 2016"
-              />
-              <CardMedia
-                component="img"
-                height="194"
-                image={bgImage} // Provided image of a book
-                alt="Paella dish"
-              />
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  Follow the adventures of Monkey D. Luffy and his crew as they
-                  search for the legendary One Piece treasure in this
-                  long-running and beloved manga series.
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid> */}
 
       <Container>
         <OutlinedInput
@@ -193,7 +125,8 @@ function Design() {
                     {book.title.charAt(0)}
                   </Avatar>
                 }
-                title={book.title}
+                sx={{ height: "50px" }}
+                title={truncateText(book.title, 5)}
                 subheader={book.publishedDate}
               />
               <CardMedia
@@ -202,9 +135,9 @@ function Design() {
                 image={bgImage}
                 alt={book.title}
               />
-              <CardContent>
+              <CardContent sx={{ height: "80px", margin: "1rem" }}>
                 <Typography variant="body2" color="text.secondary">
-                  {book.description}
+                  {truncateText(book.description, 25)}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
