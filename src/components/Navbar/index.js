@@ -41,7 +41,7 @@ function Navbar() {
     if (!Object.keys(user).length) {
       dispatch(getUser(token));
     }
-  });
+  }, [Object.keys(user).length, dispatch, token]);
 
   return (
     <Design
