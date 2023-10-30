@@ -110,7 +110,11 @@ function Design({
               </IconButton>
             )}
             {/* Conditionally render the logo */}
-            {!isDrawer && <img src={logo} alt="Logo" style={img} />}
+            {!isDrawer && (
+              <Link to="/">
+                <img src={logo} alt="Logo" style={img} />
+              </Link>
+            )}
 
             {/* Conditionally render navigation items based on isDrawer */}
             {isDrawer ? null : (
