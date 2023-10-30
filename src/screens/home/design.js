@@ -23,6 +23,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import Footer from "../../components/Footer";
 import { styles } from "./style";
+import { truncateText } from "../../helper/function";
 
 function Design({
   currentPage,
@@ -32,7 +33,6 @@ function Design({
   cardsPerPage,
   handlePageChange,
   handleSearch,
-  truncateText,
 }) {
   const {
     containerStyles,

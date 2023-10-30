@@ -32,14 +32,6 @@ function Home() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-  function truncateText(title, words) {
-    const wordArray = title.split(" ");
-    if (wordArray.length > words) {
-      return wordArray.slice(0, words).join(" ") + "...";
-    }
-    return title;
-  }
-
   return (
     <div>
       <Design
@@ -50,7 +42,6 @@ function Home() {
         cardsPerPage={cardsPerPage}
         handlePageChange={handlePageChange}
         handleSearch={handleSearch}
-        truncateText={truncateText}
       />
     </div>
   );
