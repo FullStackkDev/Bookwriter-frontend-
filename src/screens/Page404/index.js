@@ -2,11 +2,7 @@
 import React from "react";
 import Design from "./design";
 function Page404() {
-  return (
-    <div>
-      <Design />
-    </div>
-  );
+  return <Design />;
 }
 
 export default Page404;
