@@ -88,12 +88,12 @@ function Design({
         {drawer}
       </Drawer>
       {/* App Bar */}
-      <AppBar position="sticky">
+      <AppBar position="sticky" sx={{ backgroundColor: "#EEEEEE" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {isDrawer && (
               <IconButton
-                color="inherit"
+                color="black"
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
@@ -121,7 +121,7 @@ function Design({
                       component={Link}
                       to={page.path}
                       sx={{
-                        color: "white",
+                        color: "black",
                         textDecoration: isSelected(page.path)
                           ? "underline"
                           : "none",
@@ -133,7 +133,7 @@ function Design({
                 </Box>
                 <Box sx={{ marginLeft: "auto" }}>
                   {/* Add Logout button to the app bar */}
-                  <Button onClick={handleLogout} color="inherit">
+                  <Button onClick={handleLogout} sx={{ color: "black" }}>
                     Logout
                   </Button>
                 </Box>
