@@ -1,4 +1,4 @@
-// SignIn/index.js
+// Page404/index.js
 import React from "react";
 import Design from "./design";
 function Page404() {
