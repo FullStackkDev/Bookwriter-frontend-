@@ -4,7 +4,6 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -32,44 +31,38 @@ function Design({
   handleLogout,
   isSelected,
 }) {
-  const {
-    drawerDiv,
-    typography,
-    box,
-    iconButton,
-    navbarTypography,
-    navbarBox,
-  } = styles;
+  const { drawerDiv, box, iconButton, navbarBox } = styles;
 
   const drawer = (
-    <div sx={drawerDiv}>
-      <Link to="/" onClick={handleDrawerToggle}>
-        <Typography variant="h6" noWrap sx={typography}>
+    <Box sx={drawerDiv}>
+      <Box>
+        <Link to="/" onClick={handleDrawerToggle}>
           <img
             src={logo}
             alt="Logo"
             style={{ width: "auto", height: "70px" }}
           />
-        </Typography>
-      </Link>
-      <Divider sx={{ my: 2 }} />
-      <List>
-        {pages.map((page) => (
-          <ListItem key={page.label} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={page.path}
-              onClick={handleDrawerToggle}
-              sx={{
-                textAlign: "center",
-                textDecoration: isSelected(page.path) ? "underline" : "none",
-              }}
-            >
-              <ListItemText primary={page.label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+        </Link>
+        <Divider sx={{ my: 1 }} />
+        <List>
+          {pages.map((page) => (
+            <ListItem key={page.label} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={page.path}
+                onClick={handleDrawerToggle}
+                sx={{
+                  textAlign: "center",
+                  textDecoration: isSelected(page.path) ? "underline" : "none",
+                }}
+              >
+                <ListItemText primary={page.label} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+
       <Box
         sx={{
           box,
@@ -86,7 +79,7 @@ function Design({
           </IconButton>
         </Tooltip>
       </Box>
-    </div>
+    </Box>
   );
   return (
     <>
@@ -95,7 +88,7 @@ function Design({
         {drawer}
       </Drawer>
       {/* App Bar */}
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {isDrawer && (
@@ -111,47 +104,41 @@ function Design({
             )}
             {/* Conditionally render the logo */}
             {!isDrawer && (
-              <Typography
-                variant="h6"
-                noWrap
-                component={Link}
-                to="/"
-                sx={navbarTypography}
-              >
-                <img
-                  src={logo}
-                  alt="Logo"
-                  style={{ width: "auto", height: "70px" }}
-                />
-              </Typography>
+              <img
+                src={logo}
+                alt="Logo"
+                style={{ width: "auto", height: "70px" }}
+              />
             )}
 
             {/* Conditionally render navigation items based on isDrawer */}
             {isDrawer ? null : (
-              <Box sx={navbarBox}>
-                {pages.map((page) => (
-                  <Button
-                    key={page.label}
-                    component={Link}
-                    to={page.path}
-                    sx={{
-                      color: "white",
-                      textDecoration: isSelected(page.path)
-                        ? "underline"
-                        : "none",
-                    }}
-                  >
-                    {page.label}
+              <>
+                <Box sx={navbarBox}>
+                  {pages.map((page) => (
+                    <Button
+                      key={page.label}
+                      component={Link}
+                      to={page.path}
+                      sx={{
+                        color: "white",
+                        textDecoration: isSelected(page.path)
+                          ? "underline"
+                          : "none",
+                      }}
+                    >
+                      {page.label}
+                    </Button>
+                  ))}
+                </Box>
+                <Box sx={{ marginLeft: "auto" }}>
+                  {/* Add Logout button to the app bar */}
+                  <Button onClick={handleLogout} color="inherit">
+                    Logout
                   </Button>
-                ))}
-              </Box>
+                </Box>
+              </>
             )}
-            <Box sx={{ marginLeft: "auto" }}>
-              {/* Add Logout button to the app bar */}
-              <Button onClick={handleLogout} color="inherit">
-                Logout
-              </Button>
-            </Box>
             <Box sx={{ marginLeft: "auto" }}>
               <Tooltip title={`${user.first_name} ${user.last_name}`}>
                 <IconButton sx={{ p: 3 }}>
