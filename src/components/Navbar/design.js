@@ -31,19 +31,29 @@ function Design({
   handleLogout,
   isSelected,
 }) {
-  const { drawerDiv, box, iconButton, navbarBox } = styles;
+  const {
+    drawerDiv,
+    box,
+    iconButton,
+    navbarBox,
+    img,
+    listItemButton,
+    boxLogout,
+    avatarIconButton,
+    appBar,
+    drawerButtons,
+    boxOfLeftMargin,
+    logoutButton,
+    divider,
+  } = styles;
 
   const drawer = (
     <Box sx={drawerDiv}>
       <Box>
         <Link to="/" onClick={handleDrawerToggle}>
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ width: "auto", height: "70px" }}
-          />
+          <img src={logo} alt="Logo" style={img} />
         </Link>
-        <Divider sx={{ my: 1 }} />
+        <Divider sx={divider} />
         <List>
           {pages.map((page) => (
             <ListItem key={page.label} disablePadding>
@@ -51,10 +61,7 @@ function Design({
                 component={Link}
                 to={page.path}
                 onClick={handleDrawerToggle}
-                sx={{
-                  textAlign: "center",
-                  textDecoration: isSelected(page.path) ? "underline" : "none",
-                }}
+                sx={listItemButton(isSelected, page.path)}
               >
                 <ListItemText primary={page.label} />
               </ListItemButton>
@@ -68,13 +75,13 @@ function Design({
           box,
         }}
       >
-        <Box sx={{ marginTop: "auto" }}>
+        <Box sx={boxLogout}>
           <Button onClick={handleLogout} fullWidth>
             Logout
           </Button>
         </Box>
         <Tooltip title={`${user.first_name} ${user.last_name}`}>
-          <IconButton sx={{ p: 3 }}>
+          <IconButton sx={avatarIconButton}>
             <Avatar alt="Remy Sharp" src="" />
           </IconButton>
         </Tooltip>
@@ -88,7 +95,7 @@ function Design({
         {drawer}
       </Drawer>
       {/* App Bar */}
-      <AppBar position="sticky" sx={{ backgroundColor: "#EEEEEE" }}>
+      <AppBar position="sticky" sx={appBar}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {isDrawer && (
@@ -103,13 +110,7 @@ function Design({
               </IconButton>
             )}
             {/* Conditionally render the logo */}
-            {!isDrawer && (
-              <img
-                src={logo}
-                alt="Logo"
-                style={{ width: "auto", height: "70px" }}
-              />
-            )}
+            {!isDrawer && <img src={logo} alt="Logo" style={img} />}
 
             {/* Conditionally render navigation items based on isDrawer */}
             {isDrawer ? null : (
@@ -120,28 +121,23 @@ function Design({
                       key={page.label}
                       component={Link}
                       to={page.path}
-                      sx={{
-                        color: "black",
-                        textDecoration: isSelected(page.path)
-                          ? "underline"
-                          : "none",
-                      }}
+                      sx={drawerButtons(isSelected, page.path)}
                     >
                       {page.label}
                     </Button>
                   ))}
                 </Box>
-                <Box sx={{ marginLeft: "auto" }}>
+                <Box sx={boxOfLeftMargin}>
                   {/* Add Logout button to the app bar */}
-                  <Button onClick={handleLogout} sx={{ color: "black" }}>
+                  <Button onClick={handleLogout} sx={logoutButton}>
                     Logout
                   </Button>
                 </Box>
               </>
             )}
-            <Box sx={{ marginLeft: "auto" }}>
+            <Box sx={boxOfLeftMargin}>
               <Tooltip title={`${user.first_name} ${user.last_name}`}>
-                <IconButton sx={{ p: 3 }}>
+                <IconButton sx={avatarIconButton}>
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
               </Tooltip>
