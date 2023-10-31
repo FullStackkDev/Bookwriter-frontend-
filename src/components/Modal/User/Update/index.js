@@ -1,14 +1,18 @@
 import React from "react";
 import { useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validateForm } from "../../../../utils/utils";
 import { REQUIRED } from "../../../../utils/messages";
 import Design from "./design";
 import { validationRules } from "./validator/rules";
+import { updateUser } from "../../../../api/user";
+import { showToast } from "../../../../helper/tosat";
 
 function UpdateUser({ show, setShow }) {
   const user = useSelector((state) => state.user.user);
+
+  const token = useSelector((state) => state.auth.token);
 
   const [userData, setUserData] = useState({
     firstName: user.first_name,
@@ -20,6 +24,8 @@ function UpdateUser({ show, setShow }) {
   const [errors, setErrors] = useState({});
 
   const toggleModal = () => setShow(!show);
+
+  const dispatch = useDispatch();
 
   const isDisabled = (updatedUser, oldUser) => {
     return (
@@ -46,7 +52,18 @@ function UpdateUser({ show, setShow }) {
         email: userData.email,
         phone_no: userData.phoneNo,
       };
-      console.log("payload => ", payload);
+      dispatch(updateUser(payload, token, user._id))
+        .then((response) => {
+          if (response.data.success) {
+            showToast(
+              response.data.message,
+              response.data.success ? "success" : "error"
+            );
+          }
+        })
+        .catch((error) => {
+          showToast("Unable to register, please try again!", "error");
+        });
       setErrors({});
       setShow(!show);
     } else {
