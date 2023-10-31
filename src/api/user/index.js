@@ -1,4 +1,4 @@
-import axios from "../";
+import axios from "../index";
 import { userActions } from "../../Redux/store/userSlice";
 
 export const updateUser = (payload, token, id) => async (dispatch) => {
