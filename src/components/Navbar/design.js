@@ -24,6 +24,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import UpdateUser from "../Modal/User/Update";
+import { ToastContainer } from "react-toastify";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -206,6 +207,7 @@ function Design({
             </Menu>
           </Toolbar>
         </Container>
+        <ToastContainer />
       </AppBar>
       {show && <UpdateUser show={show} setShow={setShow} />}
     </>
