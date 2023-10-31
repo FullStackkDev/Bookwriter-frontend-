@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import Divider from "@mui/material/Divider";
 import logo from "../../logo.svg";
 import { styles } from "./style";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import UpdateUser from "../Modal/User/Update";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -31,6 +38,25 @@ function Design({
   handleLogout,
   isSelected,
 }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [show, setShow] = useState(false);
+
+  const openModal = () => {
+    setAnchorEl(null);
+    setShow(true);
+  };
+
   const {
     drawerDiv,
     box,
@@ -45,6 +71,8 @@ function Design({
     boxOfLeftMargin,
     logoutButton,
     divider,
+    menuAfter,
+    menuBefore,
   } = styles;
 
   const drawer = (
@@ -141,14 +169,45 @@ function Design({
             )}
             <Box sx={boxOfLeftMargin}>
               <Tooltip title={`${user.first_name} ${user.last_name}`}>
-                <IconButton sx={avatarIconButton}>
+                <IconButton
+                  sx={avatarIconButton}
+                  onClick={handleClick}
+                  aria-controls={open ? "account-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                >
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
               </Tooltip>
             </Box>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: { menuAfter, "&:before": menuBefore },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem onClick={handleClose}>
+                <Avatar /> Profile
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={openModal}>
+                <ListItemIcon>
+                  <ManageAccountsIcon fontSize="small" />
+                </ListItemIcon>
+                Update Profile
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </Container>
       </AppBar>
+      {show && <UpdateUser show={show} setShow={setShow} />}
     </>
   );
 }
