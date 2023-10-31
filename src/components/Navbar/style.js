@@ -6,15 +6,7 @@ export const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  },
-  typography: {
-    fontFamily: "monospace",
-    fontWeight: 700,
-    letterSpacing: ".3rem",
-    color: "inherit",
-    textDecoration: "none",
-    textAlign: "center",
-    mt: 2,
+    justifyContent: "space-between",
   },
   img: {
     width: "auto",
@@ -29,18 +21,31 @@ export const styles = {
     display: { xs: "block", md: "none" },
     marginRight: "10px",
   },
-  navbarTypography: {
-    display: { xs: "none", md: "flex" },
-    flexGrow: 1,
-    fontFamily: "monospace",
-    fontWeight: 700,
-    letterSpacing: ".3rem",
-    color: "inherit",
-    textDecoration: "none",
-  },
   navbarBox: {
     display: "flex",
     flexGrow: 1,
     justifyContent: "center",
+  },
+  listItemButton: (isSelected, path) => ({
+    textAlign: "center",
+    textDecoration: isSelected(path) ? "underline" : "none",
+  }),
+  boxLogout: {
+    marginTop: "auto",
+  },
+  avatarIconButton: { p: 3 },
+  appBar: { backgroundColor: "#EEEEEE" },
+  drawerButtons: (isSelected, path) => ({
+    color: "black",
+    textDecoration: isSelected(path) ? "underline" : "none",
+  }),
+  boxOfLeftMargin: {
+    marginLeft: "auto",
+  },
+  logoutButton: {
+    color: "black",
+  },
+  divider: {
+    my: 1,
   },
 };
