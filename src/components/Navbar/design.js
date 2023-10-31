@@ -202,7 +202,7 @@ function Design({
                 <ListItemIcon>
                   <ManageAccountsIcon fontSize="small" />
                 </ListItemIcon>
-                Update Profile
+                Update user
               </MenuItem>
             </Menu>
           </Toolbar>
