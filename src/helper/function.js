@@ -95,3 +95,11 @@ export const handle3rdPartyIntegration = (response, dispatch, provider) => {
       });
   }
 };
+
+export const truncateText = (title, words) => {
+  const wordArray = title.split(" ");
+  if (wordArray.length > words) {
+    return wordArray.slice(0, words).join(" ") + "...";
+  }
+  return title;
+};
