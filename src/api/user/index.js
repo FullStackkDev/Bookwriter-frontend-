@@ -1,5 +1,6 @@
 import axios from "../index";
 import { userActions } from "../../Redux/store/userSlice";
+import { USER_UPDATED } from "../../utils/messages";
 
 export const updateUser = (payload, token, id) => async (dispatch) => {
   try {
@@ -10,6 +11,9 @@ export const updateUser = (payload, token, id) => async (dispatch) => {
       },
     });
     if (response.data.success) {
+      if (response.data.message === USER_UPDATED) {
+        return response;
+      }
       dispatch(userActions.getUser(response.data.payload));
     }
     return response;
