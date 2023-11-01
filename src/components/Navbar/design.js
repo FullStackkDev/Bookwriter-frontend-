@@ -38,26 +38,14 @@ function Design({
   user,
   handleLogout,
   isSelected,
+  anchorEl,
+  handleClick,
+  handleClose,
+  openModal,
+  show,
+  setShow,
+  openMenu,
 }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const [show, setShow] = useState(false);
-
-  const openModal = () => {
-    setAnchorEl(null);
-    setShow(true);
-  };
-
   const {
     drawerDiv,
     box,
@@ -173,9 +161,9 @@ function Design({
                 <IconButton
                   sx={avatarIconButton}
                   onClick={handleClick}
-                  aria-controls={open ? "account-menu" : undefined}
+                  aria-controls={openMenu ? "account-menu" : undefined}
                   aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
+                  aria-expanded={openMenu ? "true" : undefined}
                 >
                   <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
@@ -184,7 +172,7 @@ function Design({
             <Menu
               anchorEl={anchorEl}
               id="account-menu"
-              open={open}
+              open={openMenu}
               onClose={handleClose}
               onClick={handleClose}
               PaperProps={{
