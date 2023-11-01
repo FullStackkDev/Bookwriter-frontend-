@@ -32,7 +32,9 @@ function UpdateUser({ show, setShow }) {
       updatedUser.firstName === oldUser.first_name &&
       updatedUser.lastName === oldUser.last_name &&
       updatedUser.email === oldUser.email &&
-      (oldUser.phone_no ? updatedUser.phoneNo === oldUser.phone_no : false)
+      (oldUser.phone_no
+        ? updatedUser.phoneNo === oldUser.phone_no
+        : updatedUser.phoneNo === "")
     );
   };
 
@@ -46,12 +48,21 @@ function UpdateUser({ show, setShow }) {
         validationErrors.phoneNo === `Phone number ${REQUIRED}` &&
         typeof user.phone_no === "undefined")
     ) {
-      const payload = {
-        first_name: userData.firstName,
-        last_name: userData.lastName,
-        email: userData.email,
-        phone_no: userData.phoneNo,
-      };
+      let payload = {};
+      if (userData.phoneNo === "") {
+        payload = {
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          email: userData.email,
+        };
+      } else {
+        payload = {
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          email: userData.email,
+          phone_no: userData.phoneNo,
+        };
+      }
       dispatch(updateUser(payload, token, user._id))
         .then((response) => {
           if (response.data.success) {
