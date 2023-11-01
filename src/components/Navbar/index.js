@@ -29,6 +29,25 @@ function Navbar() {
     return location.pathname === pagePath;
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const openMenu = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [show, setShow] = useState(false);
+
+  const openModal = () => {
+    setAnchorEl(null);
+    setShow(true);
+  };
+
   useEffect(() => {
     window.addEventListener("resize", updateIsDrawer);
     updateIsDrawer();
@@ -41,7 +60,7 @@ function Navbar() {
     if (!Object.keys(user).length) {
       dispatch(getUser(token));
     }
-  }, [Object.keys(user).length, dispatch, token]);
+  }, [dispatch, token, user]);
 
   return (
     <Design
@@ -51,6 +70,13 @@ function Navbar() {
       user={user}
       handleLogout={handleLogout}
       isSelected={isSelected}
+      anchorEl={anchorEl}
+      handleClick={handleClick}
+      handleClose={handleClose}
+      openModal={openModal}
+      show={show}
+      setShow={setShow}
+      openMenu={openMenu}
     />
   );
 }
