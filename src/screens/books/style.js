@@ -8,7 +8,7 @@ export const styles = {
     margin: "1rem",
   },
   cardHeader: {
-    height: "100px",
+    height: "90px",
   },
   cardContent: {
     height: "100px",

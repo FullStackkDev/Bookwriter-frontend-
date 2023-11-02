@@ -20,9 +20,10 @@ import Footer from "../../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../components/Navbar/api";
 import { styles } from "./style";
-import { dummyBooks } from "./api";
+import { getBooks } from "./api";
 import { truncateText } from "../../helper/function";
 import SearchIcon from "@mui/icons-material/Search";
+import moment from "moment/moment";
 
 const Books = () => {
   const { avatar, bookCard, cardHeader, cardContent, pagination } = styles;
@@ -35,14 +36,26 @@ const Books = () => {
 
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookData, setBookData] = useState([]);
+  const books = useSelector((state) => state.books.books);
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    if (!books.length) {
+      dispatch(getBooks(token));
+    }
+  }, [books.length, dispatch, token]);
+
+  useEffect(() => {
+    if (!Object.keys(user).length) {
+      dispatch(getUser(token));
+    }
+  }, [dispatch, token, user]);
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 
   // Filter books based on the search query
-  const filteredBooks = bookData.filter((book) =>
+  const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -64,16 +77,6 @@ const Books = () => {
 
   const handleTabType = (event, newValue) => setActiveTab(newValue);
 
-  useEffect(() => {
-    setBookData(dummyBooks);
-  }, []);
-
-  useEffect(() => {
-    if (!Object.keys(user).length) {
-      dispatch(getUser(token));
-    }
-  }, [dispatch, token, user]);
-
   return (
     <>
       <Container>
@@ -87,8 +90,8 @@ const Books = () => {
             >
               <Box display="flex" alignItems="center">
                 <Avatar sx={avatar} aria-label="book">
-                  {user.first_name.charAt(0)}
-                  {user.last_name.charAt(0)}
+                  {user.first_name?.charAt(0)}
+                  {user.last_name?.charAt(0)}
                 </Avatar>
                 <Typography
                   variant="h3"
@@ -152,17 +155,17 @@ const Books = () => {
               <CardHeader
                 avatar={
                   <Avatar sx={avatar} aria-label="book">
-                    {book.title.charAt(0)}
+                    {book.title?.charAt(0)}
                   </Avatar>
                 }
                 sx={cardHeader}
                 title={truncateText(book.title, 5)}
-                subheader={book.publishedDate}
+                subheader={moment(book.createdAt).format("LL")}
               />
               <CardMedia
                 component="img"
                 height="194"
-                image={book.coverImageUrl}
+                image={book.image}
                 alt={book.title}
               />
               <CardContent sx={cardContent}>
