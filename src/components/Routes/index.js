@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../../screens/home";
 import SignIn from "../../screens/signIn";
 import SignUp from "../../screens/signUp";
-import Books from "../../pages/Books";
+import Books from "../../screens/books";
 import Settings from "../../pages/Settings";
 import ProtectedRoute from "../ProtectedRoutes";
 import Page404 from "../../screens/Page404";
