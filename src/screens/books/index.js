@@ -73,9 +73,11 @@ const Books = () => {
   const [booksWritten, setBooksWritten] = useState(0);
   const [booksCollab, setBooksCollab] = useState(0);
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState("My books");
 
-  const handleTabType = (event, newValue) => setActiveTab(newValue);
+  const handleTabType = (event, newValue) => {
+    setActiveTab(newValue);
+  };
 
   return (
     <>
@@ -116,14 +118,14 @@ const Books = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container item justifyContent="center" xs={12} lg={4} mx="auto">
+        <Grid container justifyContent="center" xs={12} lg={4} mx="auto">
           <Tabs
             value={activeTab}
             onChange={handleTabType}
             sx={{ backgroundColor: "#eeeeee" }}
           >
-            <Tab label="Write books" />
-            <Tab label="Coloaded books" />
+            <Tab label="My books" value="My books" />
+            <Tab label="Coloaded books" value="Coloaded books" />
           </Tabs>
         </Grid>
       </Container>
