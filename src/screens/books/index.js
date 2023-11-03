@@ -11,22 +11,14 @@ const Books = () => {
 
   const dispatch = useDispatch();
 
+  const [bookloading, setBookloading] = useState(false);
+
+  const [userloading, setUserloading] = useState(false);
+
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const books = useSelector((state) => state.books.books);
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    if (!books.length) {
-      dispatch(getBooks(token));
-    }
-  }, [books.length, dispatch, token]);
-
-  useEffect(() => {
-    if (!Object.keys(user).length) {
-      dispatch(getUser(token));
-    }
-  }, [dispatch, token, user]);
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -56,6 +48,24 @@ const Books = () => {
     setActiveTab(newValue);
   };
 
+  useEffect(() => {
+    if (!books.length) {
+      setBookloading(true);
+      dispatch(getBooks(token)).then(() => {
+        setBookloading(false);
+      });
+    }
+  }, [books.length, dispatch, token]);
+
+  useEffect(() => {
+    if (!Object.keys(user).length) {
+      setUserloading(true);
+      dispatch(getUser(token)).then(() => {
+        setUserloading(false);
+      });
+    }
+  }, [dispatch, token, user]);
+
   return (
     <Design
       user={user}
@@ -70,6 +80,8 @@ const Books = () => {
       filteredBooks={filteredBooks}
       cardsPerPage={cardsPerPage}
       handlePageChange={handlePageChange}
+      bookloading={bookloading}
+      userloading={userloading}
     />
   );
 };
