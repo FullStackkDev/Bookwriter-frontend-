@@ -19,9 +19,8 @@ import {
 } from "@mui/material";
 import Footer from "../../components/Footer";
 import { styles } from "./style";
-import { truncateText } from "../../helper/function";
+import { getFullDate, truncateText } from "../../helper/function";
 import SearchIcon from "@mui/icons-material/Search";
-import moment from "moment/moment";
 
 const Design = ({
   user,
@@ -135,7 +134,7 @@ const Design = ({
                   }
                   sx={cardHeader}
                   title={truncateText(book.title, 5)}
-                  subheader={moment(book.createdAt).format("LL")}
+                  subheader={getFullDate(book.createdAt)}
                 />
                 <CardMedia
                   component="img"

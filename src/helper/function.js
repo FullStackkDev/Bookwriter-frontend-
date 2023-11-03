@@ -1,5 +1,6 @@
 // handle Input Change.
 
+import moment from "moment";
 import { loginWith3rdParty } from "../api/thirdPartyLogin";
 import { UNABLE_TO_CONTINUE } from "../utils/messages";
 import { showToast } from "./tosat";
@@ -102,4 +103,8 @@ export const truncateText = (title, words) => {
     return wordArray.slice(0, words).join(" ") + "...";
   }
   return title;
+};
+
+export const getFullDate = (date) => {
+  return moment(date).format("LL");
 };
