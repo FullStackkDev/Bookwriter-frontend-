@@ -84,7 +84,7 @@ const Design = ({
               </Grid>
               <Grid item>
                 <Typography component="span" variant="body2" color="text">
-                  {`${booksCollab} Collabrator`}
+                  {`${booksCollab} Collaborator`}
                 </Typography>
               </Grid>
             </Grid>
