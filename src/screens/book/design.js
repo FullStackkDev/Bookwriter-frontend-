@@ -59,7 +59,7 @@ const Design = ({ filterSections, handleAddMainSection }) => {
         {filterSections?.map((section) => (
           <Section key={section._id} section={section} />
         ))}
-        {filterSections.length == 0 && (
+        {filterSections.length === 0 && (
           <Typography variant="h6" sx={bookTitle}>
             NO SECTION FOUND PLEASE ADD SECTION
           </Typography>

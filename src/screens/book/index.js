@@ -16,11 +16,14 @@ function Book() {
     [sections]
   );
 
-  const handleAddMainSection = useCallback((newSection) => {
-    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-    // newSection ARGUMENT IS NOT NEEDED HERE
-    return dispatch(addSection(newSection)), [addSection];
-  });
+  const handleAddMainSection = useCallback(
+    (newSection) => {
+      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+      // newSection ARGUMENT IS NOT NEEDED HERE
+      return dispatch(addSection(newSection));
+    },
+    [dispatch]
+  );
 
   return (
     <Design
