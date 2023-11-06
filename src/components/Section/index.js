@@ -1,44 +1,46 @@
 import React, { useCallback, useMemo } from "react";
 import Design from "./design";
-
-const Section = ({
-  section,
-  sections,
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addSection,
   deleteSection,
   updateSection,
-  addSubSection,
-}) => {
+} from "../../Redux/store/sectionsSlice.js";
+
+const Section = ({ section }) => {
+  const dispatch = useDispatch();
+  const sections = useSelector((state) => state.sections.list);
+
   const subSection = useMemo(
     () => sections.filter((sec) => sec.parent_section_id === section._id),
     [sections, section._id]
   );
 
-  const handleDeleteSection = useCallback(
-    () => deleteSection(section._id),
-    [deleteSection, section._id]
-  );
+  const handleAddSubSection = useCallback((newSection) => {
+    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+    // newSection ARGUMENT IS NOT NEEDED HERE
+    return dispatch(addSection(newSection)), [addSection];
+  });
 
-  const handleUpdateSection = useCallback(
-    () => updateSection(section),
-    [updateSection, section]
-  );
+  const handleUpdateSection = useCallback((newSection) => {
+    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+    // newSection ARGUMENT IS NOT NEEDED HERE
+    return dispatch(updateSection(newSection)), [updateSection];
+  });
 
-  const handleAddSubSection = useCallback(
-    () => addSubSection(section),
-    [addSubSection, section]
-  );
+  const handleDeleteSection = useCallback((id) => {
+    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+    // id ARGUMENT IS NOT NEEDED HERE
+    return dispatch(deleteSection(id)), [deleteSection];
+  });
 
   return (
     <Design
       section={section}
-      sections={sections}
       subSection={subSection}
-      handleDeleteSection={handleDeleteSection}
-      handleUpdateSection={handleUpdateSection}
       handleAddSubSection={handleAddSubSection}
-      deleteSection={deleteSection}
-      updateSection={updateSection}
-      addSubSection={addSubSection}
+      handleUpdateSection={handleUpdateSection}
+      handleDeleteSection={handleDeleteSection}
     />
   );
 };
