@@ -16,23 +16,32 @@ const Section = ({ section }) => {
     [sections, section._id]
   );
 
-  const handleAddSubSection = useCallback((newSection) => {
-    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-    // newSection ARGUMENT IS NOT NEEDED HERE
-    return dispatch(addSection(newSection)), [addSection];
-  });
+  const handleAddSubSection = useCallback(
+    (newSection) => {
+      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+      // newSection ARGUMENT IS NOT NEEDED HERE
+      return dispatch(addSection(newSection));
+    },
+    [dispatch]
+  );
 
-  const handleUpdateSection = useCallback((newSection) => {
-    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-    // newSection ARGUMENT IS NOT NEEDED HERE
-    return dispatch(updateSection(newSection)), [updateSection];
-  });
+  const handleUpdateSection = useCallback(
+    (newSection) => {
+      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+      // newSection ARGUMENT IS NOT NEEDED HERE
+      return dispatch(updateSection(newSection));
+    },
+    [dispatch]
+  );
 
-  const handleDeleteSection = useCallback((id) => {
-    // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-    // id ARGUMENT IS NOT NEEDED HERE
-    return dispatch(deleteSection(id)), [deleteSection];
-  });
+  const handleDeleteSection = useCallback(
+    (id) => {
+      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
+      // id ARGUMENT IS NOT NEEDED HERE
+      return dispatch(deleteSection(id));
+    },
+    [dispatch]
+  );
 
   return (
     <Design
