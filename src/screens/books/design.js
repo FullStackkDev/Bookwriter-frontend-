@@ -19,7 +19,11 @@ import {
 } from "@mui/material";
 import Footer from "../../components/Footer";
 import { styles } from "./style";
-import { getFullDate, truncateText } from "../../helper/function";
+import {
+  getFirstCharacter,
+  getFullDate,
+  truncateText,
+} from "../../helper/function";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Design = ({
@@ -55,8 +59,8 @@ const Design = ({
                 <>
                   <Box display="flex" alignItems="center">
                     <Avatar sx={avatar} aria-label="book">
-                      {user.first_name?.charAt(0)}
-                      {user.last_name?.charAt(0)}
+                      {getFirstCharacter(user?.first_name)}
+                      {getFirstCharacter(user?.last_name)}
                     </Avatar>
                     <Typography
                       variant="h3"
@@ -129,7 +133,7 @@ const Design = ({
                 <CardHeader
                   avatar={
                     <Avatar sx={avatar} aria-label="book">
-                      {book.title?.charAt(0)}
+                      {getFirstCharacter(book?.title)}
                     </Avatar>
                   }
                   sx={cardHeader}

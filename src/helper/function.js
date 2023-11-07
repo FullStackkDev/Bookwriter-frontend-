@@ -108,3 +108,7 @@ export const truncateText = (title, words) => {
 export const getFullDate = (date, format) => {
   return moment(date).format(format);
 };
+
+export const getFirstCharacter = (value) => {
+  return value?.charAt(0);
+};
