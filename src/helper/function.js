@@ -109,6 +109,10 @@ export const getFullDate = (date, format) => {
   return moment(date).format(format);
 };
 
-export const getFirstCharacter = (value) => {
-  return value?.charAt(0);
+export const getFirstCharacter = (inputString) => {
+  return inputString?.charAt(0);
+};
+
+export const countPages = (totalItems, itemsPerPage) => {
+  return Math.ceil(totalItems / itemsPerPage);
 };

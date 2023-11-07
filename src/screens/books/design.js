@@ -20,6 +20,7 @@ import {
 import Footer from "../../components/Footer";
 import { styles } from "./style";
 import {
+  countPages,
   getFirstCharacter,
   getFullDate,
   truncateText,
@@ -164,7 +165,7 @@ const Design = ({
       )}
 
       <Pagination
-        count={Math.ceil(filteredBooks.length / cardsPerPage)}
+        count={countPages(filteredBooks.length, cardsPerPage)}
         page={currentPage}
         onChange={handlePageChange}
         color="primary"
