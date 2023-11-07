@@ -105,6 +105,6 @@ export const truncateText = (title, words) => {
   return title;
 };
 
-export const getFullDate = (date) => {
-  return moment(date).format("LL");
+export const getFullDate = (date, format) => {
+  return moment(date).format(format);
 };

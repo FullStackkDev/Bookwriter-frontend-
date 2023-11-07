@@ -134,7 +134,7 @@ const Design = ({
                   }
                   sx={cardHeader}
                   title={truncateText(book.title, 5)}
-                  subheader={getFullDate(book.createdAt)}
+                  subheader={getFullDate(book.createdAt, "LL")}
                 />
                 <CardMedia
                   component="img"
