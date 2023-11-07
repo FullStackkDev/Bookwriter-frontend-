@@ -9,6 +9,8 @@ const Books = () => {
 
   const token = useSelector((state) => state.auth.token);
 
+  const books = useSelector((state) => state.books.books);
+
   const dispatch = useDispatch();
 
   const [bookloading, setBookloading] = useState(false);
@@ -17,7 +19,6 @@ const Books = () => {
 
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const books = useSelector((state) => state.books.books);
   const [searchQuery, setSearchQuery] = useState("");
 
   const indexOfLastCard = currentPage * cardsPerPage;

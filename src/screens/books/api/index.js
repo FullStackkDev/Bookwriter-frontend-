@@ -7,7 +7,7 @@ export const getBooks = (token) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.data.success)
-      dispatch(booksActions.getBooks(response.data.payload));
+      dispatch(booksActions.setBooks(response.data.payload));
     return response;
   } catch (error) {
     return error;
