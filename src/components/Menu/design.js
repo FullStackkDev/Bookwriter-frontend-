@@ -13,7 +13,7 @@ function Design({
   openMenu,
   openUpdatePassword,
 }) {
-  const { menuAfter, menuBefore } = styles;
+  const { menuAfter, menuBefore, transformOrigin, anchorOrigin } = styles;
   return (
     <Menu
       anchorEl={anchorEl}
@@ -25,8 +25,8 @@ function Design({
         elevation: 0,
         sx: { menuAfter, "&:before": menuBefore },
       }}
-      transformOrigin={{ horizontal: "right", vertical: "top" }}
-      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      transformOrigin={transformOrigin}
+      anchorOrigin={anchorOrigin}
     >
       <MenuItem onClick={handleClose}>
         <ListItemIcon>
