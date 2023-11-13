@@ -43,7 +43,14 @@ const Design = ({
   bookloading,
   userloading,
 }) => {
-  const { avatar, bookCard, cardHeader, cardContent, pagination } = styles;
+  const {
+    avatar,
+    bookCard,
+    cardHeader,
+    cardContent,
+    pagination,
+    tabsContainer,
+  } = styles;
 
   return (
     <>
@@ -95,11 +102,7 @@ const Design = ({
           </Grid>
         </Grid>
         <Grid container justifyContent="center" xs={12} lg={4} mx="auto">
-          <Tabs
-            value={activeTab}
-            onChange={handleTabType}
-            sx={{ backgroundColor: "#eeeeee" }}
-          >
+          <Tabs value={activeTab} onChange={handleTabType} sx={tabsContainer}>
             <Tab label="My books" value="My books" />
             <Tab label="Coloaded books" value="Coloaded books" />
           </Tabs>

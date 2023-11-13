@@ -19,4 +19,5 @@ export const styles = {
     justifyContent: "center",
     margin: "2rem 0",
   },
+  tabsContainer: { backgroundColor: "#eeeeee" },
 };
