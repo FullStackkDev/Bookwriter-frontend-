@@ -3,17 +3,13 @@ import Design from "./design";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSections } from "./api";
+import { getBooks } from "../books/api";
 
 function Book() {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
-  // HERE WE CAN GET BOOK ID BY USING PARAMS
-  // const { id } = useParams();
-  // const id = "6548c414d63423f7c2d27308"; // URDU BOOK ID
-  const id = "6548c48bd63423f7c2d2730d"; // CHEMISTRY BOOK ID
-  // console.log(id, "Params book ID");
-  // HERE WE CAN GET BOOK ID BY USING PARAMS
-
+  const books = useSelector((state) => state.books.books);
   const sections = useSelector((state) => state.sections.list);
   const token = useSelector((state) => state.auth.token);
 
@@ -29,6 +25,8 @@ function Book() {
     [sections]
   );
 
+  const book = useMemo(() => books.find((book) => book._id === id), [books]);
+
   const handleAddMainSection = () => {
     setShowAddSectionModal((prevState) => !prevState);
     setParentSectionID(null);
@@ -40,6 +38,12 @@ function Book() {
     }
   }, [sections.length, dispatch, token]);
 
+  useEffect(() => {
+    if (!books.length) {
+      dispatch(getBooks(token)).then(() => {});
+    }
+  }, [books.length, dispatch, token]);
+
   return (
     <Design
       filterSections={filterSections}
@@ -48,6 +52,7 @@ function Book() {
       setShowAddSectionModal={setShowAddSectionModal}
       parentSectionID={parentSectionID}
       setParentSectionID={setParentSectionID}
+      book={book}
     />
   );
 }
