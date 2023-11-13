@@ -43,6 +43,7 @@ const Design = ({
           <Divider sx={divider} />
           <Box component="form" onSubmit={handleSubmit} sx={boxForm} p={2}>
             <TextField
+              multiline
               margin="normal"
               fullWidth
               id="title"
@@ -57,6 +58,7 @@ const Design = ({
               InputLabelProps={{ shrink: true }}
             />
             <TextField
+              multiline
               margin="normal"
               fullWidth
               name="content"
