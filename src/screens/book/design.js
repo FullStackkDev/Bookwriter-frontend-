@@ -2,8 +2,16 @@ import React from "react";
 import Section from "../../components/Section";
 import { Box, Button, Typography } from "@mui/material";
 import { styles } from "./style.js";
+import AddSectionModal from "../../components/Modal/SectionModal/AddSectionModal/index.js";
 
-const Design = ({ filterSections, handleAddMainSection }) => {
+const Design = ({
+  filterSections,
+  handleAddMainSection,
+  showAddSectionModal,
+  setShowAddSectionModal,
+  parentSectionID,
+  setParentSectionID,
+}) => {
   const {
     mainContainer,
     mainContainerBook,
@@ -36,28 +44,17 @@ const Design = ({ filterSections, handleAddMainSection }) => {
         </Box>
 
         <Box sx={AddSectionButtonContainer}>
-          <Button
-            variant={"contained"}
-            onClick={() => {
-              // HERE ONLY CALL HANDLER FUNCTION NO PARAMETERS WITH FUNCTION
-              const newSection = {
-                title: "TEST",
-                _id: `section-${Date.now()}-${Math.random()
-                  .toString(16)
-                  .slice(2)}`,
-                parent_section_id: null,
-                book_id: "Bio1",
-                content:
-                  "Description / Content This blog post shows a few different types of content that are supported and styled with Material styles. Basic typography, images, and code are all supported. You can extend these by modifying Markdown.js. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.",
-              };
-              handleAddMainSection(newSection);
-            }}
-          >
+          <Button variant={"contained"} onClick={handleAddMainSection}>
             Add Section
           </Button>
         </Box>
         {filterSections?.map((section) => (
-          <Section key={section._id} section={section} />
+          <Section
+            key={section._id}
+            section={section}
+            setShowAddSectionModal={setShowAddSectionModal}
+            setParentSectionID={setParentSectionID}
+          />
         ))}
         {filterSections.length === 0 && (
           <Typography variant="h6" sx={bookTitle}>
@@ -65,6 +62,13 @@ const Design = ({ filterSections, handleAddMainSection }) => {
           </Typography>
         )}
       </Box>
+      {showAddSectionModal && (
+        <AddSectionModal
+          showAddSectionModal={showAddSectionModal}
+          setShowAddSectionModal={setShowAddSectionModal}
+          parentSectionID={parentSectionID}
+        />
+      )}
     </>
   );
 };
