@@ -20,4 +20,5 @@ export const styles = {
     margin: "2rem 0",
   },
   tabsContainer: { backgroundColor: "#eeeeee" },
+  filterContainerMain: { marginTop: "30px" },
 };

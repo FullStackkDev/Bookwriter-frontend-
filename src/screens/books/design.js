@@ -50,6 +50,7 @@ const Design = ({
     cardContent,
     pagination,
     tabsContainer,
+    filterContainerMain,
   } = styles;
 
   return (
@@ -109,7 +110,7 @@ const Design = ({
         </Grid>
       </Container>
 
-      <Container sx={{ marginTop: "30px" }}>
+      <Container sx={filterContainerMain}>
         <OutlinedInput
           type="text"
           placeholder="Search books by name"
