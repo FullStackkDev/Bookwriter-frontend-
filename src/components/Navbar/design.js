@@ -14,17 +14,15 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  Menu,
-  MenuItem,
   Toolbar,
   Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import UpdateUser from "../Modal/User/Update";
 import { ToastContainer } from "react-toastify";
+import UpdatePassword from "../Modal/User/Password";
+import UserMenu from "../Menu";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -45,6 +43,9 @@ function Design({
   show,
   setShow,
   openMenu,
+  updatePassword,
+  setUpdatePassword,
+  openUpdatePassword,
 }) {
   const {
     drawerDiv,
@@ -60,8 +61,6 @@ function Design({
     boxOfLeftMargin,
     logoutButton,
     divider,
-    menuAfter,
-    menuBefore,
   } = styles;
 
   const drawer = (
@@ -98,10 +97,18 @@ function Design({
           </Button>
         </Box>
         <Tooltip title={`${user.first_name} ${user.last_name}`}>
-          <IconButton sx={avatarIconButton}>
+          <IconButton sx={avatarIconButton} onClick={handleClick}>
             <Avatar alt="Remy Sharp" src="" />
           </IconButton>
         </Tooltip>
+        <UserMenu
+          user={user}
+          anchorEl={anchorEl}
+          handleClose={handleClose}
+          openModal={openModal}
+          openMenu={openMenu}
+          openUpdatePassword={openUpdatePassword}
+        />
       </Box>
     </Box>
   );
@@ -169,35 +176,25 @@ function Design({
                 </IconButton>
               </Tooltip>
             </Box>
-            <Menu
+            <UserMenu
+              user={user}
               anchorEl={anchorEl}
-              id="account-menu"
-              open={openMenu}
-              onClose={handleClose}
-              onClick={handleClose}
-              PaperProps={{
-                elevation: 0,
-                sx: { menuAfter, "&:before": menuBefore },
-              }}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-              <MenuItem onClick={handleClose}>
-                <Avatar /> Profile
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={openModal}>
-                <ListItemIcon>
-                  <ManageAccountsIcon fontSize="small" />
-                </ListItemIcon>
-                Update user
-              </MenuItem>
-            </Menu>
+              handleClose={handleClose}
+              openModal={openModal}
+              openMenu={openMenu}
+              openUpdatePassword={openUpdatePassword}
+            />
           </Toolbar>
         </Container>
         <ToastContainer />
       </AppBar>
       {show && <UpdateUser show={show} setShow={setShow} />}
+      {updatePassword && (
+        <UpdatePassword
+          updatePassword={updatePassword}
+          setUpdatePassword={setUpdatePassword}
+        />
+      )}
     </>
   );
 }

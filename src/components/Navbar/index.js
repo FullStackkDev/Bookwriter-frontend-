@@ -48,6 +48,13 @@ function Navbar() {
     setShow(true);
   };
 
+  const [updatePassword, setUpdatePassword] = useState(false);
+
+  const openUpdatePassword = () => {
+    setAnchorEl(null);
+    setUpdatePassword(true);
+  };
+
   useEffect(() => {
     window.addEventListener("resize", updateIsDrawer);
     updateIsDrawer();
@@ -77,6 +84,9 @@ function Navbar() {
       show={show}
       setShow={setShow}
       openMenu={openMenu}
+      updatePassword={updatePassword}
+      setUpdatePassword={setUpdatePassword}
+      openUpdatePassword={openUpdatePassword}
     />
   );
 }
