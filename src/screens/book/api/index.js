@@ -2,7 +2,7 @@ import axios from "../../../api";
 import {
   addSection,
   deleteSection,
-  fetchSections,
+  setSections,
   updateSection,
 } from "../../../Redux/store/sectionsSlice";
 
@@ -12,7 +12,7 @@ export const getSections = (token) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.data.success) {
-      dispatch(fetchSections(response.data.payload));
+      dispatch(setSections(response.data.payload));
     }
     return response;
   } catch (error) {

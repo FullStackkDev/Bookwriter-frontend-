@@ -6,7 +6,7 @@ const sectionsSlice = createSlice({
     list: [],
   },
   reducers: {
-    fetchSections(state, action) {
+    setSections(state, action) {
       state.list = action.payload;
     },
     addSection(state, action) {
@@ -28,7 +28,7 @@ const sectionsSlice = createSlice({
   },
 });
 
-export const { fetchSections, addSection, updateSection, deleteSection } =
+export const { setSections, addSection, updateSection, deleteSection } =
   sectionsSlice.actions;
 
 export default sectionsSlice.reducer;
