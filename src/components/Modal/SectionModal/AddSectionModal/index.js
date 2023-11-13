@@ -12,12 +12,7 @@ const AddSectionModal = ({
   setShowAddSectionModal,
   parentSectionID,
 }) => {
-  // HERE WE CAN GET BOOK ID BY USING PARAMS
-  // const { id } = useParams();
-    // const id = "6548c414d63423f7c2d27308"; // URDU BOOK ID
-  const id = "6548c48bd63423f7c2d2730d"; // CHEMISTRY BOOK ID
-  // console.log(id, "Params book ID");
-  // HERE WE CAN GET BOOK ID BY USING PARAMS
+  const { id } = useParams();
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
