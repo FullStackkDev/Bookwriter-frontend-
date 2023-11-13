@@ -1,52 +1,41 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Design from "./design";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addSection,
-  deleteSection,
-  updateSection,
-} from "../../Redux/store/sectionsSlice.js";
+import { useSelector } from "react-redux";
 
-const Section = ({ section }) => {
-  const dispatch = useDispatch();
+const Section = ({ section, setShowAddSectionModal, setParentSectionID }) => {
   const sections = useSelector((state) => state.sections.list);
+
+  const [showUpdateSectionModal, setShowUpdateSectionModal] = useState(false);
+  const [showDeleteSectionModal, setShowDeleteSectionModal] = useState(false);
 
   const subSection = useMemo(
     () => sections.filter((sec) => sec.parent_section_id === section._id),
     [sections, section._id]
   );
 
-  const handleAddSubSection = useCallback(
-    (newSection) => {
-      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-      // newSection ARGUMENT IS NOT NEEDED HERE
-      return dispatch(addSection(newSection));
-    },
-    [dispatch]
-  );
+  const handleAddSubSection = () => {
+    setShowAddSectionModal((prevState) => !prevState);
+    setParentSectionID(section._id);
+  };
 
-  const handleUpdateSection = useCallback(
-    (newSection) => {
-      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-      // newSection ARGUMENT IS NOT NEEDED HERE
-      return dispatch(updateSection(newSection));
-    },
-    [dispatch]
-  );
+  const handleUpdateSection = () => {
+    setShowUpdateSectionModal((prevState) => !prevState);
+  };
 
-  const handleDeleteSection = useCallback(
-    (id) => {
-      // HERE MAKE API CALL AND THEN DISPATCH REDUX IN API FILE
-      // id ARGUMENT IS NOT NEEDED HERE
-      return dispatch(deleteSection(id));
-    },
-    [dispatch]
-  );
+  const handleDeleteSection = () => {
+    setShowDeleteSectionModal((prevState) => !prevState);
+  };
 
   return (
     <Design
       section={section}
       subSection={subSection}
+      setShowAddSectionModal={setShowAddSectionModal}
+      showUpdateSectionModal={showUpdateSectionModal}
+      setShowUpdateSectionModal={setShowUpdateSectionModal}
+      showDeleteSectionModal={showDeleteSectionModal}
+      setShowDeleteSectionModal={setShowDeleteSectionModal}
+      setParentSectionID={setParentSectionID}
       handleAddSubSection={handleAddSubSection}
       handleUpdateSection={handleUpdateSection}
       handleDeleteSection={handleDeleteSection}
