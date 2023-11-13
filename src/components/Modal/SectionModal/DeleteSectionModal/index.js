@@ -17,7 +17,6 @@ const DeleteSectionModal = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(section._id, "section._id");
     dispatch(deleteSections(token, section._id))
       .then((response) => {
         if (response.data.success) {
