@@ -46,5 +46,6 @@ export const redirectUri = "http://localhost:3000/signup";
 
 export const gitHubClientId = process.env.REACT_APP_GITHUBCLIENTID;
 
-export const gitHubClientSecretId =
-  process.env.REACT_APP_GITHUBCLIENTSECRETID;
+export const gitHubClientSecretId = process.env.REACT_APP_GITHUBCLIENTSECRETID;
+
+export const CARDS_PER_PAGE = 6;

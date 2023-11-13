@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../components/Navbar/api";
 import { getBooks } from "./api";
 import Design from "./design";
+import { CARDS_PER_PAGE } from "../../utils/constant";
 
 const Books = () => {
   const user = useSelector((state) => state.user.user);
@@ -17,7 +18,7 @@ const Books = () => {
 
   const [userloading, setUserloading] = useState(false);
 
-  const cardsPerPage = 6;
+  const cardsPerPage = CARDS_PER_PAGE;
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
