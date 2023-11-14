@@ -26,6 +26,7 @@ import {
   truncateText,
 } from "../../helper/function";
 import SearchIcon from "@mui/icons-material/Search";
+import AddBookModal from "../../components/Modal/Book/AddBookModal";
 
 const Design = ({
   user,
@@ -42,6 +43,9 @@ const Design = ({
   handlePageChange,
   bookloading,
   userloading,
+  showAddBookModal,
+  setShowAddBookModal,
+  handleAddBook,
 }) => {
   const {
     avatar,
@@ -84,7 +88,12 @@ const Design = ({
                   </Grid>
                 </Container>
               )}
-              <Button variant="outlined" color="info" size="small">
+              <Button
+                variant="outlined"
+                color="info"
+                size="small"
+                onClick={handleAddBook}
+              >
                 Write a book
               </Button>
             </Box>
@@ -177,6 +186,13 @@ const Design = ({
       />
 
       <Footer />
+
+      {showAddBookModal && (
+        <AddBookModal
+          showAddBookModal={showAddBookModal}
+          setShowAddBookModal={setShowAddBookModal}
+        />
+      )}
     </>
   );
 };

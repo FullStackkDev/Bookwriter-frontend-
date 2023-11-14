@@ -50,6 +50,12 @@ const Books = () => {
     setActiveTab(newValue);
   };
 
+  const [showAddBookModal, setShowAddBookModal] = useState(false);
+
+  const handleAddBook = () => {
+    setShowAddBookModal(true);
+  };
+
   useEffect(() => {
     if (!books.length) {
       setBookloading(true);
@@ -84,6 +90,9 @@ const Books = () => {
       handlePageChange={handlePageChange}
       bookloading={bookloading}
       userloading={userloading}
+      showAddBookModal={showAddBookModal}
+      setShowAddBookModal={setShowAddBookModal}
+      handleAddBook={handleAddBook}
     />
   );
 };
