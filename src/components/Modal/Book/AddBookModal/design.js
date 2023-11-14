@@ -49,6 +49,7 @@ const Design = ({
           <Divider sx={divider} />
           <Box component="form" noValidate sx={boxForm} p={2}>
             <TextField
+              multiline
               margin="normal"
               required
               fullWidth
@@ -65,6 +66,7 @@ const Design = ({
               InputLabelProps={{ shrink: true }}
             />
             <TextField
+              multiline
               margin="normal"
               required
               fullWidth
