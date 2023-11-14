@@ -3,6 +3,7 @@ import userSlice from "./userSlice";
 import authSlice from "./authSlice";
 import bookSlice from "./bookSlice";
 import sectionsReducer from "./sectionsSlice";
+import writerRoleSlice from "./writerRoleSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     auth: authSlice.reducer,
     books: bookSlice.reducer,
     sections: sectionsReducer,
+    writerRoles: writerRoleSlice.reducer,
   },
 });
