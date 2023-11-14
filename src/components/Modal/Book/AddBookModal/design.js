@@ -24,8 +24,7 @@ const Design = ({
   handleImageChange,
   imagePreview,
 }) => {
-  const { modal, icons, divider, boxForm, imageTag, uploadImageButton } =
-    styles;
+  const { modal, icons, divider, boxForm, imageTag } = styles;
 
   return (
     <Modal open={showAddBookModal} onClose={toggleModal} sx={modal}>

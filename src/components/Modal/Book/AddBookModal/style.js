@@ -12,5 +12,4 @@ export const styles = {
     objectFit: "contain",
     maxHeight: "300px",
   },
-  uploadImageButton: { width: "100%" },
 };
