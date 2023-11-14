@@ -1,6 +1,6 @@
 // addNewBook/styles.js
 export const styles = {
-  modal: { display: "grid", placeItems: "center" },
+  modal: { display: "grid", placeItems: "center", overflow: "scroll" },
 
   icons: { cursor: "pointer" },
 
@@ -10,8 +10,7 @@ export const styles = {
 
   imageTag: {
     objectFit: "contain",
-    width: "500px",
-    height: "300px",
+    maxHeight: "300px",
   },
   uploadImageButton: { width: "100%" },
 };
