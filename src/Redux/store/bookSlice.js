@@ -8,6 +8,9 @@ const bookSlice = createSlice({
     setBooks(state, action) {
       state.books = action.payload;
     },
+    addBook(state, action) {
+      state.books = [...state.books, action.payload];
+    },
   },
 });
 export const booksActions = bookSlice.actions;
