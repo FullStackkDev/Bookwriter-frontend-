@@ -1,5 +1,6 @@
 import axios from "../../../api";
 import { booksActions } from "../../../Redux/store/bookSlice";
+import { writerRoleActions } from "../../../Redux/store/writerRoleSlice";
 
 export const getBooks = (token) => async (dispatch) => {
   try {
@@ -24,7 +25,25 @@ export const addBook = (payload, token) => async (dispatch) => {
     });
     if (response?.data?.bookPayload?.success) {
       dispatch(booksActions.addBook(response.data.bookPayload.payload));
+      dispatch(
+        writerRoleActions.addWriterRoles(
+          response.data.writerRolePayload.payload
+        )
+      );
     }
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getWriterRoles = (token) => async (dispatch) => {
+  try {
+    const response = await axios.get("/writer-role", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (response.data.success)
+      dispatch(writerRoleActions.setWriterRoles(response.data.payload));
     return response;
   } catch (error) {
     return error;
