@@ -32,8 +32,8 @@ import AddBookModal from "../../components/Modal/Book/AddBookModal";
 const Design = ({
   user,
   currentPage,
-  booksWritten,
-  booksCollab,
+  userBooksAsAuthor,
+  userBooksAsCollaborator,
   activeTab,
   handleTabType,
   handleSearch,
@@ -102,12 +102,12 @@ const Design = ({
             <Grid container spacing={3} mb={3}>
               <Grid item>
                 <Typography component="span" variant="body2" color="text">
-                  {`${booksWritten} Books`}
+                  {userBooksAsAuthor?.length ?? 0}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography component="span" variant="body2" color="text">
-                  {`${booksCollab} Collaborator`}
+                  {userBooksAsCollaborator?.length ?? 0}
                 </Typography>
               </Grid>
             </Grid>
