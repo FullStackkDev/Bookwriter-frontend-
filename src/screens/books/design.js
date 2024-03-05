@@ -26,8 +26,8 @@ import {
   truncateText,
 } from "../../helper/function";
 import SearchIcon from "@mui/icons-material/Search";
-import { NavLink } from "react-router-dom";
 import AddBookModal from "../../components/Modal/Book/AddBookModal";
+import { NavLink } from "react-router-dom";
 
 const Design = ({
   user,
