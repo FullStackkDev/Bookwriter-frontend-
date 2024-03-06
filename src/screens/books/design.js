@@ -102,12 +102,12 @@ const Design = ({
             <Grid container spacing={3} mb={3}>
               <Grid item>
                 <Typography component="span" variant="body2" color="text">
-                  {userBooksAsAuthor?.length ?? 0}
+                  My books: {userBooksAsAuthor?.length ?? 0}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography component="span" variant="body2" color="text">
-                  {userBooksAsCollaborator?.length ?? 0}
+                  Collabed books: {userBooksAsCollaborator?.length ?? 0}
                 </Typography>
               </Grid>
             </Grid>
@@ -116,7 +116,7 @@ const Design = ({
         <Grid container justifyContent="center" xs={12} lg={4} mx="auto">
           <Tabs value={activeTab} onChange={handleTabType} sx={tabsContainer}>
             <Tab label="My books" value="My books" />
-            <Tab label="Coloaded books" value="Coloaded books" />
+            <Tab label="Collabed books" value="Coloaded books" />
           </Tabs>
         </Grid>
       </Container>

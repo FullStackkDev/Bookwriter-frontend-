@@ -20,6 +20,7 @@ const Design = ({
   handleAddSubSection,
   handleUpdateSection,
   handleDeleteSection,
+  writerRoleBook,
 }) => {
   const { sectionContainer, introContainer, title, buttonsStyling } = styles;
 
@@ -35,6 +36,7 @@ const Design = ({
               sx={buttonsStyling}
               endIcon={<AddIcon />}
               onClick={handleAddSubSection}
+              disabled={writerRoleBook?.role === "collaborator"}
             >
               Add
             </Button>
@@ -55,6 +57,7 @@ const Design = ({
               sx={buttonsStyling}
               endIcon={<DeleteForeverIcon />}
               onClick={handleDeleteSection}
+              disabled={writerRoleBook?.role === "collaborator"}
             >
               Delete
             </Button>
@@ -69,6 +72,7 @@ const Design = ({
               section={childSection}
               setShowAddSectionModal={setShowAddSectionModal}
               setParentSectionID={setParentSectionID}
+              writerRoleBook={writerRoleBook}
             />
           ))}
       </Box>

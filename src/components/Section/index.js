@@ -2,7 +2,12 @@ import React, { useMemo, useState } from "react";
 import Design from "./design";
 import { useSelector } from "react-redux";
 
-const Section = ({ section, setShowAddSectionModal, setParentSectionID }) => {
+const Section = ({
+  section,
+  setShowAddSectionModal,
+  setParentSectionID,
+  writerRoleBook,
+}) => {
   const sections = useSelector((state) => state.sections.list);
 
   const [showUpdateSectionModal, setShowUpdateSectionModal] = useState(false);
@@ -39,6 +44,7 @@ const Section = ({ section, setShowAddSectionModal, setParentSectionID }) => {
       handleAddSubSection={handleAddSubSection}
       handleUpdateSection={handleUpdateSection}
       handleDeleteSection={handleDeleteSection}
+      writerRoleBook={writerRoleBook}
     />
   );
 };

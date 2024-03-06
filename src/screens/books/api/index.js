@@ -49,3 +49,15 @@ export const getWriterRoles = (token) => async (dispatch) => {
     return error;
   }
 };
+export const createWriterRole = (token, payload) => async (dispatch) => {
+  try {
+    const response = await axios.post("/writer-role", payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (response.data.success)
+      dispatch(writerRoleActions.addWriterRoles(response.data.payload));
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

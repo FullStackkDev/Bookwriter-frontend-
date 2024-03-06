@@ -3,7 +3,9 @@ import Design from "./design";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSections } from "./api";
-import { getBooks } from "../books/api";
+import { createWriterRole, getBooks, getWriterRoles } from "../books/api";
+import { getAllUsers } from "../../components/Navbar/api";
+import { showToast } from "../../helper/tosat";
 
 function Book() {
   const dispatch = useDispatch();
@@ -11,10 +13,19 @@ function Book() {
 
   const books = useSelector((state) => state.books.books);
   const sections = useSelector((state) => state.sections.list);
+  const user = useSelector((state) => state.user.user);
+  const writerRolesBooks = useSelector(
+    (state) => state.writerRoles.writerRoles
+  );
+  const allUsers = useSelector((state) => state.user.allUsers).filter(
+    (myUser) => myUser._id !== user._id
+  );
+
   const token = useSelector((state) => state.auth.token);
 
   const [showAddSectionModal, setShowAddSectionModal] = useState(false);
   const [parentSectionID, setParentSectionID] = useState(null);
+  const [collaborator, setCollaborator] = useState("");
 
   const filterSections = useMemo(
     () =>
@@ -22,14 +33,54 @@ function Book() {
         (section) =>
           section.book_id === id && section.parent_section_id === null
       ),
-    [sections]
+    [sections, id]
   );
 
-  const book = useMemo(() => books.find((book) => book._id === id), [books]);
+  const book = useMemo(
+    () => books.find((book) => book._id === id),
+    [books, id]
+  );
+  const writerRoleBook = useMemo(
+    () =>
+      writerRolesBooks.find(
+        (writerRoleBook) =>
+          writerRoleBook.book_id === id && writerRoleBook.user_id === user._id
+      ),
+    [writerRolesBooks, id, user._id]
+  );
 
   const handleAddMainSection = () => {
     setShowAddSectionModal((prevState) => !prevState);
     setParentSectionID(null);
+  };
+
+  const handleChangeCollaborator = (event) => {
+    setCollaborator(event.target.value);
+    const payload = {
+      book_id: id,
+      user_id: event?.target?.value?._id,
+      role: "collaborator",
+    };
+    dispatch(createWriterRole(token, payload))
+      .then((response) => {
+        if (response.data.success) {
+          showToast(
+            "Assigned Collaborator Successfully",
+            response.data.success ? "success" : "error"
+          );
+        } else {
+          Object.values(response?.data?.message?.error)?.forEach((error) => {
+            showToast(error, response.data.success ? "success" : "error");
+          });
+        }
+      })
+      .catch((error) => {
+        showToast(
+          "Unable to Assigned Collaborator, Internal Server Error, please try again!",
+          "error"
+        );
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -44,6 +95,18 @@ function Book() {
     }
   }, [books.length, dispatch, token]);
 
+  useEffect(() => {
+    if (!writerRolesBooks.length) {
+      dispatch(getWriterRoles(token)).then(() => {});
+    }
+  }, [writerRolesBooks.length, dispatch, token]);
+
+  useEffect(() => {
+    if (!allUsers.length) {
+      dispatch(getAllUsers(token)).then(() => {});
+    }
+  }, [allUsers.length, dispatch, token]);
+
   return (
     <Design
       filterSections={filterSections}
@@ -53,6 +116,10 @@ function Book() {
       parentSectionID={parentSectionID}
       setParentSectionID={setParentSectionID}
       book={book}
+      writerRoleBook={writerRoleBook}
+      allUsers={allUsers}
+      handleChangeCollaborator={handleChangeCollaborator}
+      collaborator={collaborator}
     />
   );
 }

@@ -1,6 +1,14 @@
 import React from "react";
 import Section from "../../components/Section";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import { styles } from "./style.js";
 import AddSectionModal from "../../components/Modal/SectionModal/AddSectionModal/index.js";
 import { getFullDate } from "../../helper/function.js";
@@ -13,6 +21,10 @@ const Design = ({
   parentSectionID,
   setParentSectionID,
   book,
+  writerRoleBook,
+  allUsers,
+  handleChangeCollaborator,
+  collaborator,
 }) => {
   const {
     mainContainer,
@@ -44,9 +56,32 @@ const Design = ({
                 {book?.description ?? ""}
               </Typography>
             </Box>
-
+            {writerRoleBook?.role === "author" && (
+              <FormControl sx={{ m: 1, minWidth: 300 }}>
+                <InputLabel id="demo-simple-select-label">
+                  Assign Collaborator
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={collaborator}
+                  label="Assign Collaborator"
+                  onChange={handleChangeCollaborator}
+                >
+                  {allUsers?.map((user, key) => (
+                    <MenuItem key={user?._id} value={user}>
+                      {user?.first_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
             <Box sx={AddSectionButtonContainer}>
-              <Button variant={"contained"} onClick={handleAddMainSection}>
+              <Button
+                variant={"contained"}
+                onClick={handleAddMainSection}
+                disabled={writerRoleBook?.role === "collaborator"}
+              >
                 Add Section
               </Button>
             </Box>
@@ -56,6 +91,7 @@ const Design = ({
                 section={section}
                 setShowAddSectionModal={setShowAddSectionModal}
                 setParentSectionID={setParentSectionID}
+                writerRoleBook={writerRoleBook}
               />
             ))}
             {filterSections.length === 0 && (
