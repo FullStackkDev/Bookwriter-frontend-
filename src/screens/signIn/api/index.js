@@ -1,5 +1,5 @@
 import axios from "../../../api";
-import { getUser } from "../../../components/Navbar/api";
+import { getUser, getAllUsers } from "../../../components/Navbar/api";
 import { authActions } from "../../../Redux/store/authSlice";
 
 export const login = (payload) => async (dispatch) => {
@@ -8,6 +8,7 @@ export const login = (payload) => async (dispatch) => {
     if (response.data.success) {
       dispatch(authActions.Login(response.data.payload));
       dispatch(getUser(response.data.payload.token));
+      dispatch(getAllUsers(response.data.payload.token));
     }
     return response;
   } catch (error) {

@@ -1,6 +1,6 @@
 import axios from ".";
 import { authActions } from "../Redux/store/authSlice";
-import { getUser } from "../components/Navbar/api";
+import { getAllUsers, getUser } from "../components/Navbar/api";
 
 export const loginWith3rdParty = (payload) => async (dispatch) => {
   try {
@@ -8,6 +8,7 @@ export const loginWith3rdParty = (payload) => async (dispatch) => {
     if (response.data.success) {
       dispatch(authActions.Login(response.data.payload));
       dispatch(getUser(response.data.payload.token));
+      dispatch(getAllUsers(response.data.payload.token));
     }
     return response;
   } catch (error) {
