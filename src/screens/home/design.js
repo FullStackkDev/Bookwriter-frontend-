@@ -23,7 +23,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import Footer from "../../components/Footer";
 import { styles } from "./style";
-import { truncateText } from "../../helper/function";
+import { getFullDate, truncateText } from "../../helper/function";
 import { NavLink } from "react-router-dom";
 
 function Design({
@@ -124,17 +124,17 @@ function Design({
                 }
                 sx={cardHeader}
                 title={
-                  <NavLink to={"/book/123"} style={bookTitleLink}>
+                  <NavLink to={`#`} style={bookTitleLink}>
                     <Typography>{truncateText(book.title, 5)}</Typography>
                   </NavLink>
                 }
-                subheader={book.publishedDate}
+                subheader={getFullDate(book.createdAt, "LL")}
               />
-              <NavLink to={"/book/123"} style={bookTitleLink}>
+              <NavLink to={`#`} style={bookTitleLink}>
                 <CardMedia
                   component="img"
                   height="194"
-                  image={bgImage}
+                  image={book.image}
                   alt={book.title}
                 />
               </NavLink>

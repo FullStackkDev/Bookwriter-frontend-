@@ -1,23 +1,24 @@
 // SignUp/index.js
 import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { dummyBooks } from "./api";
 import Design from "./design";
+import { getBooks } from "../books/api";
+import { useDispatch, useSelector } from "react-redux";
+
 function Home() {
-  const cardsPerPage = 6;
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books.books);
+  const token = useSelector((state) => state.auth.token);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookData, setBookData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    setBookData(dummyBooks);
-  }, []);
-
+  const cardsPerPage = 6;
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 
   // Filter books based on the search query
-  const filteredBooks = bookData.filter((book) =>
+  const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -31,6 +32,12 @@ function Home() {
     setSearchQuery(event.target.value);
     setCurrentPage(1); // Reset to the first page when searching
   };
+
+  useEffect(() => {
+    if (!books.length) {
+      dispatch(getBooks(token)).then(() => {});
+    }
+  }, [books.length, dispatch, token]);
 
   return (
     <div>
